@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mood Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            width: 420px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-top: 10px;
+            resize: none;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🧠 Mood Detection System</h2>
+    <p>Diary Emotion Detection</p>
+
+    <textarea id="text" placeholder="Write your feelings here..."></textarea>
+
+    <br>
+    <button onclick="predictEmotion()">Predict Emotion</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function predictEmotion() {
+    const text = document.getElementById("text").value;
+
+    if (text.trim().length < 3) {
+        document.getElementById("result").innerText = "❌ Please enter more text";
+        return;
+    }
+
+    fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.emotion) {
+            document.getElementById("result").innerText =
+                "🧠 Detected Emotion: " + data.emotion;
+        } else {
+            document.getElementById("result").innerText =
+                "Error: " + data.error;
+        }
+    })
+    .catch(err => {
+        document.getElementById("result").innerText =
+            "Backend not running!";
+        console.error(err);
+    });
+}
+</script>
+
+</body>
+</html>

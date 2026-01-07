@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 TEXT_WEIGHT = 0.7
 VISUAL_WEIGHT = 0.3
 
-# Load logs
+# ✅ Correct paths
 text_df = pd.read_csv("mood_diary.csv")
-visual_df = pd.read_csv("/home/soorajvp/Desktop/moodclass2/visual_based/mood_log.csv")  # you already have / will log this
+visual_df = pd.read_csv("../visual/mood_log.csv")
 
 # Convert DateTime
 text_df["DateTime"] = pd.to_datetime(text_df["DateTime"])
@@ -34,11 +34,9 @@ visual_period = visual_df[visual_df["DateTime"] >= start_time]
 text_counts = Counter(text_period["Emotion"])
 visual_counts = Counter(visual_period["Emotion"])
 
-# Combine emotion keys
-all_emotions = set(text_counts.keys()) | set(visual_counts.keys())
-
-# Fusion scoring
+# Fusion
 fusion_scores = {}
+all_emotions = set(text_counts.keys()) | set(visual_counts.keys())
 
 for emotion in all_emotions:
     fusion_scores[emotion] = (
@@ -46,10 +44,8 @@ for emotion in all_emotions:
         + VISUAL_WEIGHT * visual_counts.get(emotion, 0)
     )
 
-# Final mood
 final_mood = max(fusion_scores, key=fusion_scores.get)
 
-# Display result
 print("\n🧾 FUSED MOOD SUMMARY")
 print("-" * 30)
 print("Period:", period_label)

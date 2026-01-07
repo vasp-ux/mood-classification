@@ -1,45 +1,44 @@
-import pandas as pd
-import joblib
-from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score
+import joblib
 
-# 1) Load cleaned dataset
-df = pd.read_csv("/home/soorajvp/Desktop/moodclass2/text based/goemotions_clean_8.csv")
+def load_txt(path):
+    texts, labels = [], []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            if ";" in line:
+                text, label = line.rsplit(";", 1)
+                texts.append(text.strip())
+                labels.append(label.strip())
+    return texts, labels
 
-X_text = df["text"]
-y = df["emotion"]
+# Load dataset
+X_train, y_train = load_txt("dataset/train.txt")
+X_val, y_val = load_txt("dataset/val.txt")
 
-# 2) Train/validation split (for quick sanity check)
-X_train, X_val, y_train, y_val = train_test_split(
-    X_text, y, test_size=0.2, random_state=42, stratify=y
-)
+print("Training samples:", len(X_train))
+print("Validation samples:", len(X_val))
 
-# 3) TF-IDF Vectorization
+# TF-IDF
 vectorizer = TfidfVectorizer(
-    max_features=8000,
-    ngram_range=(1, 2),
+    max_features=5000,
     stop_words="english"
 )
+
 X_train_vec = vectorizer.fit_transform(X_train)
 X_val_vec = vectorizer.transform(X_val)
 
-# 4) Train classifier (handles class imbalance)
-model = LogisticRegression(
-    max_iter=1000,
-    class_weight="balanced",
-    n_jobs=None
-)
+# Model
+model = LogisticRegression(max_iter=1000)
 model.fit(X_train_vec, y_train)
 
-# 5) Quick evaluation (optional but good)
+# Evaluation
 y_pred = model.predict(X_val_vec)
-print("\n=== Validation Report ===")
-print(classification_report(y_val, y_pred))
+print("Validation Accuracy:", accuracy_score(y_val, y_pred))
 
-# 6) Save model + vectorizer
+# Save
 joblib.dump(model, "text_emotion_model.pkl")
-joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
+joblib.dump(vectorizer, "vectorizer.pkl")
 
-print("\n✅ STEP 2 complete: Model and vectorizer saved")
+print("✅ Text emotion model trained and saved successfully")

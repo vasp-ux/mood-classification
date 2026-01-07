@@ -2,15 +2,17 @@ import os
 import random
 import shutil
 
-DATASET_PATH = "/home/soorajvp/Desktop/moodclass2/visual_based/archive(1)/train"
-BALANCED_PATH = "/home/soorajvp/Desktop/moodclass2/visual_based/archive(1)/train_balanced"
+DATASET_PATH = r"C:\Users\User\Downloads\mood-classification\visual\fer2013\train"
+BALANCED_PATH = r"C:\Users\User\Downloads\mood-classification\visual\fer2013\train_balanced"
 
-EMOTIONS = ["angry", "contempt", "disgust", "fear", "happy", "neutral","sad","surprise"]
+EMOTIONS = [
+ "angry","disgust","fear",
+ "happy","neutral","sad","surprise","contempt"
+]
 
-# Create balanced folder
 os.makedirs(BALANCED_PATH, exist_ok=True)
 
-# Step 1: find minimum image count
+# Step 1: find minimum count
 counts = {}
 for emotion in EMOTIONS:
     folder = os.path.join(DATASET_PATH, emotion)
@@ -19,7 +21,7 @@ for emotion in EMOTIONS:
 min_count = min(counts.values())
 print("Minimum images per class:", min_count)
 
-# Step 2: copy equal number of images
+# Step 2: copy balanced images
 for emotion in EMOTIONS:
     src = os.path.join(DATASET_PATH, emotion)
     dst = os.path.join(BALANCED_PATH, emotion)

@@ -3,11 +3,20 @@ import os
 import numpy as np
 
 # Dataset path
-DATASET_PATH = "/home/soorajvp/Desktop/moodclass2/visual_based/archive(1)/train"
+DATASET_PATH = r"C:\Users\User\Downloads\mood-classification\visual\fer2013\train"
 print("Dataset exists:", os.path.exists(DATASET_PATH))
 
 # Emotion labels (must match folder names)
-EMOTIONS = ["angry", "contempt", "disgust", "fear", "happy", "neutral","sad","surprise"]
+EMOTIONS = [
+    "angry",
+    "disgust",
+    "fear",
+    "happy",
+    "neutral",
+    "sad",
+    "surprise",
+    "contempt"
+]
 
 IMG_SIZE = 48   # 48x48 for CNN
 

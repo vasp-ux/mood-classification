@@ -3,9 +3,19 @@ import os
 import numpy as np
 from sklearn.utils import shuffle
 
-DATASET_PATH = "/home/soorajvp/Desktop/moodclass2/visual_based/archive(1)/train_balanced"
+DATASET_PATH = r"C:\Users\User\Downloads\mood-classification\visual\fer2013\train"
 
-EMOTIONS = ["angry", "contempt", "disgust", "fear", "happy", "neutral","sad","surprise"]
+EMOTIONS = [
+    "angry",
+    "disgust",
+    "fear",
+    "happy",
+    "neutral",
+    "sad",
+    "surprise",
+    "contempt"
+]
+
 IMG_SIZE = 48
 
 data = []
