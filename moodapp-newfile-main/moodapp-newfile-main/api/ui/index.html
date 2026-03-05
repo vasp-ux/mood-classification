@@ -1,0 +1,4080 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoodSense — Student Wellbeing Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #0f0e1a;
+      --bg2: #1a1a2e;
+      --bg3: #16213e;
+      --card: #1e1e3f;
+      --card2: #2d2b55;
+      --card-border: rgba(255, 255, 255, .06);
+      --text: #dfe6e9;
+      --text-dim: #8a8fa8;
+      --text-bright: #ffffff;
+      --pink: #e84393;
+      --pink2: #fd79a8;
+      --coral: #ff7675;
+      --coral2: #fab1a0;
+      --purple: #6c5ce7;
+      --purple2: #a29bfe;
+      --blue: #74b9ff;
+      --blue2: #0984e3;
+      --teal: #00cec9;
+      --green: #00b894;
+      --yellow: #fdcb6e;
+      --orange: #e17055;
+      --r: 14px;
+      --r-sm: 10px;
+      --r-xs: 6px;
+      --t: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg)
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--purple);
+      border-radius: 3px
+    }
+
+    /* LAYOUT */
+    .app {
+      display: flex;
+      min-height: 100vh
+    }
+
+    .sidebar {
+      width: 220px;
+      background: var(--bg2);
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 100;
+      transition: transform .3s
+    }
+
+    .sidebar .logo {
+      padding: 20px 18px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--pink);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .sidebar nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 0 8px
+    }
+
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: var(--r-sm);
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--t);
+      border: 1px solid transparent
+    }
+
+    .sidebar nav a:hover {
+      background: rgba(255, 255, 255, .04);
+      color: var(--text)
+    }
+
+    .sidebar nav a.active {
+      background: linear-gradient(135deg, rgba(232, 67, 147, .12), rgba(108, 92, 231, .1));
+      color: var(--pink);
+      border-color: rgba(232, 67, 147, .2)
+    }
+
+    .sidebar nav a .ic {
+      font-size: 1.1rem;
+      width: 22px;
+      text-align: center
+    }
+
+    .sidebar .sb-foot {
+      padding: 14px 16px;
+      border-top: 1px solid var(--card-border)
+    }
+
+    .sidebar .u-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer
+    }
+
+    .sidebar .u-av {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: .8rem;
+      color: #fff
+    }
+
+    .sidebar .u-name {
+      font-size: .82rem;
+      color: var(--text);
+      font-weight: 500
+    }
+
+    .sidebar .u-email {
+      font-size: .7rem;
+      color: var(--text-dim)
+    }
+
+    .main {
+      flex: 1;
+      margin-left: 220px;
+      padding: 0
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(15, 14, 26, .6);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .ham {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer
+    }
+
+    .top-stat {
+      font-size: .82rem;
+      color: var(--text-dim)
+    }
+
+    .top-stat b {
+      color: var(--pink)
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      font-size: .75rem;
+      color: var(--text-dim);
+      background: var(--card)
+    }
+
+    .s-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--yellow)
+    }
+
+    .s-dot.ok {
+      background: var(--green);
+      box-shadow: 0 0 6px rgba(0, 184, 148, .5)
+    }
+
+    .s-dot.err {
+      background: var(--coral)
+    }
+
+    .content {
+      padding: 20px 24px 40px
+    }
+
+    @media(max-width:768px) {
+      .sidebar {
+        transform: translateX(-100%)
+      }
+
+      .sidebar.open {
+        transform: translateX(0)
+      }
+
+      .main {
+        margin-left: 0
+      }
+
+      .ham {
+        display: block
+      }
+
+      .content {
+        padding: 16px 12px 40px
+      }
+    }
+
+    .page {
+      display: none;
+      animation: fu .35s ease
+    }
+
+    .page.active {
+      display: block
+    }
+
+    @keyframes fu {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* CARDS */
+    .c {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      padding: 20px;
+      transition: var(--t)
+    }
+
+    .c:hover {
+      border-color: rgba(232, 67, 147, .15)
+    }
+
+    .c h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 4px
+    }
+
+    .c .sub {
+      color: var(--text-dim);
+      font-size: .8rem;
+      margin-bottom: 14px
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr 1fr
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr 1fr 1fr
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr)
+    }
+
+    @media(max-width:900px) {
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media(max-width:600px) {
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .mt {
+      margin-top: 16px
+    }
+
+    /* AUTH */
+    .auth-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0e1a, #1a1a2e, #16213e)
+    }
+
+    .auth-wrap::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: var(--pink);
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: .15;
+      top: -10%;
+      left: -5%
+    }
+
+    .auth-wrap::after {
+      content: '';
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: var(--purple);
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: .12;
+      bottom: -10%;
+      right: -5%
+    }
+
+    .auth-card {
+      position: relative;
+      z-index: 1;
+      width: min(400px, calc(100% - 28px));
+      background: rgba(30, 30, 63, .85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .5)
+    }
+
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 22px
+    }
+
+    .auth-logo h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      color: var(--pink)
+    }
+
+    .auth-logo p {
+      color: var(--text-dim);
+      font-size: .85rem;
+      margin-top: 4px
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, .03);
+      border-radius: var(--r-sm);
+      padding: 3px
+    }
+
+    .auth-tabs button {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      font: 600 .82rem 'Inter', sans-serif;
+      border-radius: var(--r-xs);
+      cursor: pointer;
+      transition: var(--t)
+    }
+
+    .auth-tabs button.active {
+      background: var(--pink);
+      color: #fff
+    }
+
+    .field {
+      margin-bottom: 14px
+    }
+
+    .field label {
+      display: block;
+      font-size: .73rem;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-xs);
+      color: var(--text);
+      font: .9rem 'Inter', sans-serif;
+      outline: none;
+      transition: var(--t)
+    }
+
+    .field select {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-xs);
+      color: var(--text);
+      font: .9rem 'Inter', sans-serif;
+      outline: none;
+      transition: var(--t)
+    }
+
+    .field input:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(232, 67, 147, .12)
+    }
+
+    .btn-p {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: var(--r-sm);
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      font: 600 .88rem 'Inter', sans-serif;
+      cursor: pointer;
+      transition: var(--t);
+      margin-top: 6px
+    }
+
+    .btn-p:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(232, 67, 147, .3)
+    }
+
+    .auth-err {
+      color: var(--coral);
+      font-size: .8rem;
+      margin-top: 6px;
+      min-height: 18px
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0 16px;
+      color: var(--text-dim);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, .08)
+    }
+
+    .btn-google {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(255, 255, 255, .2);
+      background: #ffffff;
+      color: #2b2b2b;
+      font: 600 .86rem 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: var(--t)
+    }
+
+    .btn-google:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .25)
+    }
+
+    .g-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: conic-gradient(#4285f4 0 25%, #34a853 0 50%, #fbbc05 0 75%, #ea4335 0 100%);
+      display: inline-block;
+      box-shadow: inset 0 0 0 2px #fff
+    }
+
+    .google-note {
+      margin-top: 10px;
+      font-size: .75rem;
+      color: var(--text-dim)
+    }
+
+    .google-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, .02);
+      margin-bottom: 14px
+    }
+
+    .google-head .g-title {
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--text-bright)
+    }
+
+    .google-head .g-sub {
+      font-size: .75rem;
+      color: var(--text-dim)
+    }
+
+    /* ADMIN */
+    .admin-kv {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .admin-kv .kv {
+      background: var(--card2);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-sm);
+      padding: 10px 12px;
+      min-width: 140px
+    }
+
+    .admin-kv .kv .k {
+      font-size: .68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    .admin-kv .kv .v {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-bright)
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow: auto;
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-sm);
+      background: rgba(255, 255, 255, .02)
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .74rem;
+      min-width: 640px
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      text-align: left;
+      vertical-align: top
+    }
+
+    .admin-table th {
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      color: var(--text);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    .admin-empty {
+      color: var(--text-dim);
+      font-size: .8rem;
+      padding: 8px 0
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 12px
+    }
+
+    .cal-day {
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-xs);
+      padding: 10px 8px;
+      text-align: center;
+      background: rgba(255, 255, 255, .02);
+      cursor: pointer;
+      transition: var(--t);
+      min-height: 60px
+    }
+
+    .cal-day:hover {
+      border-color: rgba(232, 67, 147, .3);
+      transform: translateY(-1px)
+    }
+
+    .cal-day .d {
+      font-size: .72rem;
+      color: var(--text-dim)
+    }
+
+    .cal-day .m {
+      font-size: 1.1rem;
+      margin-top: 4px
+    }
+
+    .cal-day.active {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 2px rgba(232, 67, 147, .2)
+    }
+
+    .insight-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px
+    }
+
+    .insight-item {
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-sm);
+      padding: 12px;
+      background: rgba(255, 255, 255, .02)
+    }
+
+    .insight-item .it {
+      font-size: .68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      margin-bottom: 4px
+    }
+
+    .insight-item .iv {
+      font-size: .86rem;
+      line-height: 1.6
+    }
+
+    /* STAT CARDS */
+    .stat-c {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      padding: 18px;
+      text-align: center;
+      transition: var(--t);
+      position: relative;
+      overflow: hidden
+    }
+
+    .stat-c::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: var(--r) var(--r) 0 0
+    }
+
+    .stat-c.pink::before {
+      background: linear-gradient(90deg, var(--pink), var(--coral))
+    }
+
+    .stat-c.purple::before {
+      background: linear-gradient(90deg, var(--purple), var(--blue))
+    }
+
+    .stat-c.teal::before {
+      background: linear-gradient(90deg, var(--teal), var(--green))
+    }
+
+    .stat-c.orange::before {
+      background: linear-gradient(90deg, var(--orange), var(--yellow))
+    }
+
+    .stat-c:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .3)
+    }
+
+    .stat-ic {
+      font-size: 1.5rem;
+      margin-bottom: 4px
+    }
+
+    .stat-v {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text-bright)
+    }
+
+    .stat-l {
+      font-size: .73rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: .3px
+    }
+
+    /* PROGRESS BARS */
+    .prog {
+      margin-bottom: 12px
+    }
+
+    .prog-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px
+    }
+
+    .prog-label {
+      font-size: .8rem;
+      color: var(--text)
+    }
+
+    .prog-val {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text-bright)
+    }
+
+    .prog-track {
+      height: 6px;
+      background: rgba(255, 255, 255, .06);
+      border-radius: 3px;
+      overflow: hidden
+    }
+
+    .prog-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width .8s ease
+    }
+
+    /* DONUT CHART */
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap
+    }
+
+    .donut {
+      position: relative;
+      width: 100px;
+      height: 100px
+    }
+
+    .donut svg {
+      transform: rotate(-90deg)
+    }
+
+    .donut-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
+    }
+
+    .donut-pct {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-bright)
+    }
+
+    .donut-name {
+      font-size: .65rem;
+      color: var(--text-dim)
+    }
+
+    /* AREA CHART (CSS) */
+    .chart-area {
+      position: relative;
+      height: 140px;
+      background: var(--card2);
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      padding: 0 2px
+    }
+
+    .chart-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      transition: height .6s ease;
+      position: relative;
+      min-width: 0
+    }
+
+    .chart-bar:hover {
+      opacity: .85
+    }
+
+    .chart-bar .tip {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg);
+      color: var(--text-bright);
+      font-size: .65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .chart-bar:hover .tip {
+      opacity: 1
+    }
+
+    .chart-labels {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 4px 0;
+      font-size: .65rem;
+      color: var(--text-dim)
+    }
+
+    .chart-meta {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: var(--r-xs);
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .02);
+      font-size: .72rem;
+      color: var(--text-dim)
+    }
+
+    .server-bar {
+      border-radius: 6px 6px 2px 2px;
+      box-shadow: 0 0 16px rgba(233, 30, 99, .2);
+      border: 1px solid rgba(255, 255, 255, .1)
+    }
+
+    /* RING GAUGE */
+    .ring-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .ring-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px
+    }
+
+    .ring {
+      position: relative;
+      width: 60px;
+      height: 60px
+    }
+
+    .ring svg {
+      transform: rotate(-90deg)
+    }
+
+    .ring-val {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text-bright)
+    }
+
+    .ring-name {
+      font-size: .68rem;
+      color: var(--text-dim)
+    }
+
+    /* NUM CARDS */
+    .num-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px
+    }
+
+    .num-c {
+      background: var(--card2);
+      border-radius: var(--r-sm);
+      padding: 14px;
+      text-align: center;
+      border-top: 3px solid
+    }
+
+    .num-v {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-bright)
+    }
+
+    .num-l {
+      font-size: .7rem;
+      color: var(--text-dim);
+      margin-top: 2px
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border: none;
+      border-radius: 999px;
+      font: 600 .8rem 'Inter', sans-serif;
+      cursor: pointer;
+      transition: var(--t)
+    }
+
+    .btn-xs {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: .7rem
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .66rem;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .06);
+      color: var(--text-dim)
+    }
+
+    .btn-a {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff
+    }
+
+    .btn-a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(232, 67, 147, .25)
+    }
+
+    .btn-s {
+      background: rgba(255, 255, 255, .05);
+      color: var(--text);
+      border: 1px solid var(--card-border)
+    }
+
+    .btn-s:hover {
+      background: rgba(255, 255, 255, .08)
+    }
+
+    .btn-d {
+      background: linear-gradient(135deg, var(--coral), var(--orange));
+      color: #fff
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px
+    }
+
+    .res-box {
+      border: 1px solid rgba(232, 67, 147, .12);
+      border-left: 3px solid var(--pink);
+      border-radius: var(--r-xs);
+      padding: 12px;
+      background: rgba(232, 67, 147, .03);
+      min-height: 44px;
+      font-size: .85rem;
+      line-height: 1.6;
+      margin-top: 10px
+    }
+
+    /* MOOD BUTTONS */
+    .mood-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .mood-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      padding: 14px 22px;
+      background: rgba(255, 255, 255, .03);
+      border: 2px solid var(--card-border);
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: var(--t);
+      min-width: 100px
+    }
+
+    .mood-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232, 67, 147, .3)
+    }
+
+    .mood-btn.sel {
+      border-color: var(--pink);
+      background: rgba(232, 67, 147, .1);
+      box-shadow: 0 0 16px rgba(232, 67, 147, .12)
+    }
+
+    .mood-btn .me {
+      font-size: 1.8rem;
+      transition: transform .3s
+    }
+
+    .mood-btn:hover .me {
+      transform: scale(1.12)
+    }
+
+    .mood-btn .ml {
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--text-dim)
+    }
+
+    textarea.gi {
+      width: 100%;
+      min-height: 100px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-sm);
+      padding: 12px;
+      color: var(--text);
+      font: .88rem 'Inter', sans-serif;
+      resize: vertical;
+      outline: none;
+      transition: var(--t)
+    }
+
+    textarea.gi:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(232, 67, 147, .1)
+    }
+
+    .cam-wrap {
+      border: 2px solid var(--card-border);
+      border-radius: var(--r);
+      background: rgba(0, 0, 0, .4);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      max-width: 480px;
+      transition: var(--t)
+    }
+
+    .cam-wrap.on {
+      border-color: var(--teal);
+      box-shadow: 0 0 24px rgba(0, 206, 201, .12);
+      animation: cpulse 2s infinite
+    }
+
+    @keyframes cpulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 16px rgba(0, 206, 201, .08)
+      }
+
+      50% {
+        box-shadow: 0 0 32px rgba(0, 206, 201, .18)
+      }
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .bdg {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      background: rgba(15, 14, 26, .85);
+      color: var(--teal);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: .72rem;
+      font-weight: 500;
+      backdrop-filter: blur(6px)
+    }
+
+    /* PROFILE */
+    .pf-head {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap
+    }
+
+    .pf-av {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      border: 3px solid var(--pink)
+    }
+
+    .pf-info h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      color: var(--text-bright)
+    }
+
+    .pf-info p {
+      color: var(--text-dim);
+      font-size: .82rem
+    }
+
+    .badges-g {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .badge-i {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, .02);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r-sm);
+      min-width: 90px;
+      transition: var(--t)
+    }
+
+    .badge-i.on {
+      border-color: rgba(0, 184, 148, .3);
+      background: rgba(0, 184, 148, .05)
+    }
+
+    .badge-i .bi {
+      font-size: 1.4rem
+    }
+
+    .badge-i .bn {
+      font-size: .7rem;
+      color: var(--text-dim);
+      text-align: center
+    }
+
+    /* SETTINGS */
+    .set-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .03)
+    }
+
+    .set-row:last-child {
+      border-bottom: none
+    }
+
+    .set-t {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--text)
+    }
+
+    .set-d {
+      font-size: .75rem;
+      color: var(--text-dim);
+      margin-top: 1px
+    }
+
+    .tog {
+      position: relative;
+      width: 42px;
+      height: 22px;
+      cursor: pointer
+    }
+
+    .tog input {
+      opacity: 0;
+      width: 0;
+      height: 0
+    }
+
+    .tog .sl {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .08);
+      border-radius: 11px;
+      transition: var(--t)
+    }
+
+    .tog .sl:before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      left: 3px;
+      top: 3px;
+      transition: var(--t)
+    }
+
+    .tog input:checked+.sl {
+      background: var(--pink)
+    }
+
+    .tog input:checked+.sl:before {
+      transform: translateX(20px)
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, .08);
+      border-top-color: var(--pink);
+      border-radius: 50%;
+      animation: sp .5s linear infinite
+    }
+
+    @keyframes sp {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .greeting h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--text-bright)
+    }
+
+    .greeting p {
+      color: var(--text-dim);
+      font-size: .88rem;
+      margin-top: 3px
+    }
+
+    .greeting {
+      margin-bottom: 20px
+    }
+
+    .act-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .03)
+    }
+
+    .act-item:last-child {
+      border: none
+    }
+
+    .act-ic {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      flex-shrink: 0
+    }
+
+    .act-txt {
+      flex: 1;
+      font-size: .82rem
+    }
+
+    .act-time {
+      font-size: .72rem;
+      color: var(--text-dim)
+    }
+
+    /* AI CHAT */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 140px);
+      max-height: 700px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-bubble {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: .88rem;
+      line-height: 1.55;
+      animation: fu .3s ease;
+      position: relative;
+    }
+
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-bubble.ai {
+      align-self: flex-start;
+      background: var(--card2);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-bubble .src-tag {
+      display: inline-block;
+      font-size: .6rem;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(232, 67, 147, .15);
+      color: var(--pink2);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    .chat-typing {
+      align-self: flex-start;
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px;
+      background: var(--card2);
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--card-border);
+    }
+
+    .chat-typing span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      animation: bounce-dot 1.2s infinite;
+    }
+
+    .chat-typing span:nth-child(2) {
+      animation-delay: .2s
+    }
+
+    .chat-typing span:nth-child(3) {
+      animation-delay: .4s
+    }
+
+    @keyframes bounce-dot {
+
+      0%,
+      80%,
+      100% {
+        transform: translateY(0);
+        opacity: .4
+      }
+
+      40% {
+        transform: translateY(-6px);
+        opacity: 1
+      }
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .chat-input-row input {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      color: var(--text);
+      font: .88rem 'Inter', sans-serif;
+      outline: none;
+      transition: var(--t);
+    }
+
+    .chat-input-row input:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(232, 67, 147, .12);
+    }
+
+    .chat-input-row button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      font: 600 .85rem 'Inter', sans-serif;
+      cursor: pointer;
+      transition: var(--t);
+    }
+
+    .chat-input-row button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(232, 67, 147, .25);
+    }
+
+    .chat-input-row button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* AI source badges */
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .68rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .ai-badge.ai-on {
+      background: rgba(0, 184, 148, .12);
+      color: var(--green);
+    }
+
+    .ai-badge.ai-off {
+      background: rgba(253, 203, 110, .12);
+      color: var(--yellow);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- AUTH -->
+  <div id="authPage" class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <h1>🌙 MoodSense</h1>
+        <p>Your wellbeing companion</p>
+      </div>
+      <div class="auth-tabs">
+        <button id="tabSI" class="active" onclick="showTab('si')">Sign In</button>
+        <button id="tabSU" onclick="showTab('su')">Sign Up</button>
+        <button id="tabG" onclick="showTab('g')">Google</button>
+      </div>
+      <div id="siForm">
+        <div class="field"><label>Email</label><input type="email" id="liE" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" id="liP" placeholder="••••••••"></div>
+        <button class="btn-p" onclick="doSignIn()">Sign In</button>
+        <div id="liErr" class="auth-err"></div>
+      </div>
+      <div id="suForm" style="display:none">
+        <div class="field"><label>Full Name</label><input id="rN" placeholder="Alex Johnson"></div>
+        <div class="field"><label>Email</label><input type="email" id="rE" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" id="rP" placeholder="Min 6 chars"></div>
+        <div class="field"><label>Confirm</label><input type="password" id="rP2" placeholder="Repeat"></div>
+        <button class="btn-p" onclick="doSignUp()">Create Account</button>
+        <div id="rErr" class="auth-err"></div>
+      </div>
+      <div id="gForm" style="display:none">
+        <div class="google-head">
+          <span class="g-dot" aria-hidden="true"></span>
+          <div>
+            <div class="g-title">Google Sign In</div>
+            <div class="g-sub">Use your Google account to continue.</div>
+          </div>
+        </div>
+        <button class="btn-google" onclick="doGoogleSignIn()"><span class="g-dot" aria-hidden="true"></span>Continue with Google</button>
+        <div class="google-note">A popup will appear. Choose your Google account to continue.</div>
+        <div id="gErr" class="auth-err"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="appShell" class="app" style="display:none">
+    <aside id="sidebar" class="sidebar">
+      <div class="logo">🌙 MoodSense</div>
+      <nav>
+        <a class="active" onclick="goTo('dash')"><span class="ic">📊</span>Dashboard</a>
+        <a onclick="goTo('checkin')"><span class="ic">🎭</span>Check-In</a>
+        <a onclick="goTo('chat')"><span class="ic">💬</span>AI Chat</a>
+        <a onclick="goTo('summary')"><span class="ic">📈</span>Summary</a>
+        <a onclick="goTo('calendar')"><span class="ic">🗓️</span>Calendar</a>
+        <a onclick="goTo('insights')"><span class="ic">✨</span>Insights</a>
+        <a onclick="goTo('goals')"><span class="ic">🎯</span>Goals</a>
+        <a onclick="goTo('profile')"><span class="ic">👤</span>Profile</a>
+        <a onclick="goTo('settings')"><span class="ic">⚙️</span>Settings</a>
+        <a id="navAdmin" onclick="goTo('admin')" style="display:none"><span class="ic">🛡️</span>Admin</a>
+      </nav>
+      <div class="sb-foot">
+        <div class="u-pill" onclick="goTo('profile')">
+          <div id="sbAv" class="u-av" style="background:linear-gradient(135deg,var(--pink),var(--purple))">A</div>
+          <div>
+            <div id="sbN" class="u-name">User</div>
+            <div id="sbE" class="u-email">email</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="topbar-left"><button class="ham" onclick="togSB()">☰</button><span class="top-stat">TOTAL: <b
+              id="topTotal">0</b> check-ins</span></div>
+        <div class="topbar-right">
+          <div class="status-pill" id="llmPill" title="LLM Provider Status"><span id="llmDot" class="s-dot"></span><span
+              id="llmTxt">Checking AI...</span></div>
+          <div class="status-pill"><span id="hDot" class="s-dot"></span><span id="hTxt">Checking...</span></div>
+        </div>
+      </div>
+      <div class="content">
+
+        <!-- DASHBOARD -->
+        <div id="pageDash" class="page active">
+          <div class="greeting">
+            <h1 id="greet">Good evening, Alex 👋</h1>
+            <p>Your wellbeing overview</p>
+          </div>
+          <div class="grid grid-4">
+            <div class="stat-c pink">
+              <div class="stat-ic">🎯</div>
+              <div id="sCI" class="stat-v">0</div>
+              <div class="stat-l">Today</div>
+            </div>
+            <div class="stat-c purple">
+              <div class="stat-ic">🔥</div>
+              <div id="sSt" class="stat-v">0</div>
+              <div class="stat-l">Streak</div>
+            </div>
+            <div class="stat-c teal">
+              <div class="stat-ic">💜</div>
+              <div id="sMd" class="stat-v">—</div>
+              <div class="stat-l">Mood</div>
+            </div>
+            <div class="stat-c orange">
+              <div class="stat-ic">📈</div>
+              <div id="sTr" class="stat-v">—</div>
+              <div class="stat-label">Trend</div>
+            </div>
+          </div>
+          <div class="grid grid-2 mt">
+            <div class="c">
+              <h2>📊 Mood Chart (7 Days)</h2>
+              <div class="sub">Daily emotional intensity</div>
+              <div id="moodChart" class="chart-area"></div>
+              <div id="moodLabels" class="chart-labels"></div>
+            </div>
+            <div class="c">
+              <h2>🍩 Mood Breakdown</h2>
+              <div class="sub">Distribution of emotions</div>
+              <div id="donutArea" class="donut-wrap"></div>
+            </div>
+          </div>
+          <div class="grid grid-2 mt">
+            <div class="c">
+              <h2>⚡ Quick Actions</h2>
+              <div class="grid grid-2" style="gap:8px;margin-top:8px">
+                <div class="mood-btn" style="min-width:auto" onclick="goTo('checkin')"><span class="me">😊</span><span
+                    class="ml">Check-In</span></div>
+                <div class="mood-btn" style="min-width:auto" onclick="goTo('checkin')"><span class="me">📝</span><span
+                    class="ml">Reflect</span></div>
+                <div class="mood-btn" style="min-width:auto" onclick="goTo('checkin')"><span class="me">🎬</span><span
+                    class="ml">Video</span></div>
+                <div class="mood-btn" style="min-width:auto" onclick="goTo('summary')"><span class="me">📈</span><span
+                    class="ml">Summary</span></div>
+              </div>
+            </div>
+            <div class="c">
+              <h2>🕒 Recent Activity</h2>
+              <div id="actFeed">
+                <div class="act-item">
+                  <div class="act-txt" style="color:var(--text-dim)">No activity yet</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHECK-IN -->
+        <div id="pageCheckin" class="page">
+          <div class="greeting">
+            <h1>How are you feeling? 🎭</h1>
+            <p>Take a moment to check in.</p>
+          </div>
+          <div class="c">
+            <h2>1. Quick Check-In</h2>
+            <div class="sub">Choose what feels closest.</div>
+            <div class="mood-btns">
+              <div class="mood-btn" onclick="qC('good',this)"><span class="me">😊</span><span class="ml">Good</span>
+              </div>
+              <div class="mood-btn" onclick="qC('okay',this)"><span class="me">😐</span><span class="ml">Okay</span>
+              </div>
+              <div class="mood-btn" onclick="qC('not_great',this)"><span class="me">😔</span><span class="ml">Not
+                  Great</span></div>
+            </div>
+            <div id="qRes" class="res-box">No check-in yet.</div>
+          </div>
+          <div class="c mt">
+            <h2>2. Reflection ✍️</h2>
+            <div class="sub">Share about your day.</div>
+            <div class="btn-row">
+              <button class="btn btn-s" onclick="useTemplate('Today I felt ... because ...')">Template 1</button>
+              <button class="btn btn-s" onclick="useTemplate('A small win today was ...')">Template 2</button>
+              <button class="btn btn-s" onclick="useTemplate('Something that is weighing on me is ...')">Template 3</button>
+            </div>
+            <textarea id="textInput" class="gi" placeholder="Write anything..."></textarea>
+            <div class="btn-row"><button class="btn btn-a" onclick="saveRef()">💾 Save</button><button class="btn btn-s"
+                onclick="skipRef()">Skip</button></div>
+            <div id="tRes" class="res-box">Optional — skip anytime.</div>
+          </div>
+          <div class="c mt">
+            <h2>2b. Guided Check-In 🧭</h2>
+            <div class="sub">Answer a prompt for a deeper check-in.</div>
+            <div class="field">
+              <label>Prompt</label>
+              <select id="gPrompt">
+                <option value="What’s one feeling you had today and why?">What’s one feeling you had today and why?</option>
+                <option value="What is one thing you want to improve tomorrow?">What is one thing you want to improve tomorrow?</option>
+                <option value="What helped you cope with stress today?">What helped you cope with stress today?</option>
+                <option value="Who or what gave you energy this week?">Who or what gave you energy this week?</option>
+              </select>
+            </div>
+            <textarea id="gText" class="gi" placeholder="Write your response..."></textarea>
+            <div class="btn-row">
+              <button class="btn btn-a" onclick="saveGuided()">Save Guided</button>
+              <button class="btn btn-s" onclick="clearGuided()">Clear</button>
+            </div>
+            <div id="gRes" class="res-box">Guided responses are saved like reflections.</div>
+          </div>
+          <div class="c mt">
+            <h2>3. Video Check 🎬</h2>
+            <div class="sub">Camera check. No extra window.</div>
+            <div id="camW" class="cam-wrap"><video id="cam" autoplay muted playsinline></video>
+              <div id="camB" class="bdg">📷 Idle</div>
+            </div>
+            <canvas id="camC" width="320" height="240" style="display:none"></canvas>
+            <div class="btn-row"><button class="btn btn-a" onclick="startV()">▶ Start</button><button class="btn btn-d"
+                onclick="stopV()">⏹ Stop</button><button class="btn btn-s" onclick="skipV()">Skip</button></div>
+            <div id="vRes" class="res-box">No video check yet.</div>
+          </div>
+          <div class="c mt">
+            <h2>4. Support 💬</h2>
+            <div class="sub">Gentle response based on check-ins.</div>
+            <div class="btn-row"><button class="btn btn-a" onclick="getSupport()">✨ Get Support</button></div>
+            <div id="fRes" class="res-box">No support yet.</div>
+          </div>
+          <div class="c mt">
+            <h2>5. Weekly 📈</h2>
+            <div class="sub">Soft summary.</div>
+            <div class="btn-row"><button class="btn btn-a" onclick="getWeekly()">📋 Summary</button></div>
+            <div id="wRes" class="res-box">No summary yet.</div>
+          </div>
+        </div>
+
+        <!-- AI CHAT -->
+        <div id="pageChat" class="page">
+          <div class="greeting">
+            <h1>AI Chat Companion 💬</h1>
+            <p>Talk to MoodSense — your supportive wellbeing companion</p>
+          </div>
+          <div class="c">
+            <div class="chat-container">
+              <div id="chatMessages" class="chat-messages">
+                <div class="chat-bubble ai">Hi there! 👋 I'm MoodSense, your wellbeing companion. How are you feeling
+                  today? Feel free to share anything on your mind.<div class="src-tag">✨ MoodSense</div>
+                </div>
+              </div>
+              <div class="chat-input-row">
+                <input type="text" id="chatInput" placeholder="Type your message..."
+                  onkeydown="if(event.key==='Enter')sendChat()">
+                <button id="chatSendBtn" onclick="sendChat()">Send ✨</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUMMARY CHARTS -->
+        <div id="pageSummary" class="page">
+          <div class="greeting">
+            <h1>Summary & Analytics 📈</h1>
+            <p>Deep dive into your emotional patterns</p>
+          </div>
+          <div class="grid grid-3">
+            <div class="stat-c pink">
+              <div class="stat-v" id="smTotal">0</div>
+              <div class="stat-l">Total Check-Ins</div>
+            </div>
+            <div class="stat-c purple">
+              <div class="stat-v" id="smAvg">—</div>
+              <div class="stat-l">Top Mood</div>
+            </div>
+            <div class="stat-c teal">
+              <div class="stat-v" id="smStrk">0</div>
+              <div class="stat-l">Best Streak</div>
+            </div>
+          </div>
+          <div class="grid grid-2 mt">
+            <div class="c">
+              <h2>📊 Mood Intensity (14 Days)</h2>
+              <div class="sub">Bar chart of daily activity</div>
+              <div id="sumChart" class="chart-area" style="height:160px"></div>
+              <div id="sumLabels" class="chart-labels"></div>
+            </div>
+            <div class="c">
+              <h2>🎯 Mood Rings</h2>
+              <div class="sub">Percentage by emotion</div>
+              <div id="ringArea" class="ring-row"></div>
+            </div>
+          </div>
+          <div class="grid grid-2 mt">
+            <div class="c">
+              <h2>📉 Progress Bars</h2>
+              <div class="sub">Mood frequency breakdown</div>
+              <div id="progBars"></div>
+            </div>
+            <div class="c">
+              <h2>🔢 Key Numbers</h2>
+              <div class="sub">Your stats at a glance</div>
+              <div id="numCards" class="num-row"></div>
+            </div>
+          </div>
+          <div class="grid grid-2 mt">
+            <div class="c">
+              <h2>📅 Daily Chart (7 Days)</h2>
+              <div class="sub">Saved server data from complete check-ins</div>
+              <div id="dailySrvChart" class="chart-area" style="height:180px"></div>
+              <div id="dailySrvLabels" class="chart-labels"></div>
+              <div id="dailySrvMeta" class="chart-meta">No daily chart data yet.</div>
+            </div>
+            <div class="c">
+              <h2>🗓️ Weekly Chart (8 Weeks)</h2>
+              <div class="sub">Week-based trend saved automatically</div>
+              <div id="weeklySrvChart" class="chart-area" style="height:180px"></div>
+              <div id="weeklySrvLabels" class="chart-labels"></div>
+              <div id="weeklySrvMeta" class="chart-meta">No weekly chart data yet.</div>
+            </div>
+          </div>
+          <div class="c mt">
+            <h2>🍩 Full Breakdown</h2>
+            <div class="sub">All emotions visualized</div>
+            <div id="fullDonut" class="donut-wrap"></div>
+          </div>
+          <div class="c mt">
+            <h2>📅 Week vs Month</h2>
+            <div class="sub">Compare your recent activity</div>
+            <div class="admin-kv">
+              <div class="kv"><div class="k">Last 7 Days</div><div class="v" id="trendWeek">0</div></div>
+              <div class="kv"><div class="k">Last 30 Days</div><div class="v" id="trendMonth">0</div></div>
+              <div class="kv"><div class="k">Trend</div><div class="v" id="trendDir">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CALENDAR -->
+        <div id="pageCalendar" class="page">
+          <div class="greeting">
+            <h1>Mood Calendar 🗓️</h1>
+            <p>See your month at a glance.</p>
+          </div>
+          <div class="c">
+            <h2>Monthly View</h2>
+            <div class="sub">Tap a day to see details.</div>
+            <div id="calHeader" class="btn-row"></div>
+            <div id="calendarGrid" class="cal-grid"></div>
+            <div id="calDetail" class="res-box">Select a day to view mood details.</div>
+          </div>
+        </div>
+
+        <!-- INSIGHTS -->
+        <div id="pageInsights" class="page">
+          <div class="greeting">
+            <h1>Insights ✨</h1>
+            <p>History of your AI feedback and check-ins.</p>
+          </div>
+          <div class="c">
+            <h2>AI History</h2>
+            <div class="sub">Recent AI feedback saved on this device.</div>
+            <div class="field"><label>Filter</label><input id="insightFilter" placeholder="Search insights..."
+                oninput="renderInsights()"></div>
+            <div id="insightList" class="insight-list"></div>
+          </div>
+        </div>
+
+        <!-- GOALS -->
+        <div id="pageGoals" class="page">
+          <div class="greeting">
+            <h1>Goals 🎯</h1>
+            <p>Set streaks and weekly targets.</p>
+          </div>
+          <div class="c">
+            <h2>Your Goals</h2>
+            <div class="sub">Customize your targets.</div>
+            <div class="field"><label>Weekly Check-ins</label><input type="number" id="goalWeekly" min="1" max="14"
+                value="5"></div>
+            <div class="field"><label>Target Streak (days)</label><input type="number" id="goalStreak" min="3" max="60"
+                value="7"></div>
+            <div class="btn-row"><button class="btn btn-a" onclick="saveGoals()">Save Goals</button></div>
+            <div id="goalRes" class="res-box">Set goals to track progress.</div>
+          </div>
+          <div class="c mt">
+            <h2>Progress</h2>
+            <div class="sub">Live progress from your check-ins.</div>
+            <div class="admin-kv">
+              <div class="kv"><div class="k">This Week</div><div class="v" id="goalWeekVal">0</div></div>
+              <div class="kv"><div class="k">Current Streak</div><div class="v" id="goalStreakVal">0</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROFILE -->
+        <div id="pageProfile" class="page">
+          <div class="greeting">
+            <h1>Profile 👤</h1>
+            <p>Your wellbeing journey</p>
+          </div>
+          <div class="c">
+            <div class="pf-head">
+              <div id="pfAv" class="pf-av" style="background:linear-gradient(135deg,var(--pink),var(--purple))">A</div>
+              <div class="pf-info">
+                <h2 id="pfN">Name</h2>
+                <p id="pfEm">email</p>
+                <p id="pfSince" style="color:var(--text-dim);font-size:.75rem;margin-top:2px">Member since —</p>
+              </div>
+            </div>
+          </div>
+          <div class="c mt">
+            <h2>📊 Distribution</h2>
+            <div id="pfBars"></div>
+          </div>
+          <div class="c mt">
+            <h2>🏆 Badges</h2>
+            <div id="pfBadges" class="badges-g"></div>
+          </div>
+          <div class="grid grid-3 mt">
+            <div class="stat-c pink">
+              <div id="pfTC" class="stat-v">0</div>
+              <div class="stat-l">Check-Ins</div>
+            </div>
+            <div class="stat-c purple">
+              <div id="pfSK" class="stat-v">0</div>
+              <div class="stat-l">Streak</div>
+            </div>
+            <div class="stat-c teal">
+              <div id="pfTM" class="stat-v">—</div>
+              <div class="stat-l">Top Mood</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div id="pageSettings" class="page">
+          <div class="greeting">
+            <h1>Settings ⚙️</h1>
+            <p>Customize MoodSense</p>
+          </div>
+          <div class="c">
+            <h2>🎨 Appearance</h2>
+            <div class="set-row">
+              <div>
+                <div class="set-t">Dark Mode</div>
+                <div class="set-d">Cosmic dark theme</div>
+              </div><label class="tog"><input type="checkbox" checked disabled><span class="sl"></span></label>
+            </div>
+          </div>
+          <div class="c mt">
+            <h2>🔔 Notifications</h2>
+            <div class="set-row">
+              <div>
+                <div class="set-t">Daily Reminder</div>
+                <div class="set-d">Check-in reminder</div>
+              </div><label class="tog"><input type="checkbox"><span class="sl"></span></label>
+            </div>
+            <div class="set-row">
+              <div>
+                <div class="set-t">Weekly Summary</div>
+                <div class="set-d">Weekly mood report</div>
+              </div><label class="tog"><input type="checkbox" checked><span class="sl"></span></label>
+            </div>
+          </div>
+          <div class="c mt">
+            <h2>⏰ Reminders</h2>
+            <div class="sub">Set a daily reminder time.</div>
+            <div class="field"><label>Reminder Time</label><input type="time" id="reminderTime" value="20:00"></div>
+            <div class="field">
+              <label>Enable</label>
+              <select id="reminderEnabled">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+              </select>
+            </div>
+            <div class="btn-row"><button class="btn btn-a" onclick="saveReminder()">Save Reminder</button></div>
+            <div id="reminderRes" class="res-box">Notifications are handled by your browser.</div>
+          </div>
+          <div class="c mt">
+            <h2>🔒 Privacy</h2>
+            <div class="set-row">
+              <div>
+                <div class="set-t">Camera</div>
+                <div class="set-d">Used only during video check</div>
+              </div><span style="color:var(--green);font-size:.8rem">Browser managed</span>
+            </div>
+            <div
+              style="margin-top:14px;padding:12px;background:rgba(255,255,255,.02);border-radius:var(--r-xs);border:1px solid var(--card-border);color:var(--text-dim);font-size:.8rem;line-height:1.5">
+              Your data stays in your browser. Server data provides supportive feedback only.</div>
+          </div>
+          <div class="c mt">
+            <h2>🆘 Support</h2>
+            <div class="sub">If you need immediate help, reach out.</div>
+            <div class="res-box">
+              If you are in immediate danger, call local emergency services.
+              <br>US: 988 Suicide & Crisis Lifeline (call or text 988).
+              <br>Find local resources: https://findahelpline.com
+            </div>
+          </div>
+          <div class="c mt">
+            <h2>📤 Export</h2>
+            <div class="sub">Download your personal data.</div>
+            <div class="btn-row"><button class="btn btn-s" onclick="downloadPersonal()">Download JSON</button></div>
+          </div>
+          <div class="c mt">
+            <h2>ℹ️ About</h2>
+            <div class="set-row">
+              <div>
+                <div class="set-t">MoodSense</div>
+                <div class="set-d">v2.0 — Student Wellbeing</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt"><button class="btn btn-d" onclick="doLogout()"
+              style="width:100%;padding:13px;border-radius:var(--r-sm);font-size:.88rem">🚪 Sign Out</button></div>
+        </div>
+
+        <!-- ADMIN -->
+        <div id="pageAdmin" class="page">
+          <div class="greeting">
+            <h1>Admin Panel 🛡️</h1>
+            <p>Review all stored sessions and AI responses.</p>
+          </div>
+          <div class="c">
+            <h2>Access</h2>
+            <div class="sub">Enter your admin key (if configured) and load data.</div>
+            <div class="field"><label>Admin Key</label><input type="password" id="adminKeyInput"
+                placeholder="Admin key"></div>
+            <div class="field"><label>Row Limit</label><input type="number" id="adminLimit" min="1" max="5000"
+                value="200"></div>
+            <div class="btn-row">
+              <button class="btn btn-a" onclick="loadAdmin()">Load Data</button>
+              <button class="btn btn-s" onclick="clearAdmin()">Clear</button>
+              <button class="btn btn-s" onclick="downloadAdmin('json')">Download JSON</button>
+              <button class="btn btn-s" onclick="downloadAdmin('csv','users')">Users CSV</button>
+              <button class="btn btn-s" onclick="downloadAdmin('csv','activity')">Activity CSV</button>
+              <button class="btn btn-s" onclick="downloadAdmin('csv','responses')">Responses CSV</button>
+            </div>
+            <div id="adminErr" class="auth-err"></div>
+          </div>
+
+          <div class="c mt">
+            <h2>Counts</h2>
+            <div class="sub">Snapshot of stored records.</div>
+            <div class="admin-kv" id="adminCounts">
+              <div class="kv"><div class="k">Text Sessions</div><div class="v" id="adminTextCount">0</div></div>
+              <div class="kv"><div class="k">Visual Sessions</div><div class="v" id="adminVisualCount">0</div></div>
+              <div class="kv"><div class="k">Overall Sessions</div><div class="v" id="adminOverallCount">0</div></div>
+              <div class="kv"><div class="k">Responses</div><div class="v" id="adminRespCount">0</div></div>
+              <div class="kv"><div class="k">Users</div><div class="v" id="adminUsersCount">0</div></div>
+              <div class="kv"><div class="k">Activity</div><div class="v" id="adminActivityCount">0</div></div>
+            </div>
+            <div class="google-note" id="adminUpdated">Not loaded yet.</div>
+          </div>
+
+          <div class="c mt">
+            <h2>Analytics</h2>
+            <div class="sub">AI usage and risk signals.</div>
+            <div class="admin-kv" id="adminAnalytics">
+              <div class="kv"><div class="k">AI Responses</div><div class="v" id="adminAiCount">0</div></div>
+              <div class="kv"><div class="k">Fallback</div><div class="v" id="adminFallbackCount">0</div></div>
+              <div class="kv"><div class="k">High Severity</div><div class="v" id="adminHighCount">0</div></div>
+              <div class="kv"><div class="k">Last 7 Days</div><div class="v" id="adminWeekCount">0</div></div>
+            </div>
+          </div>
+
+          <div class="c mt" id="rbacConsole">
+            <h2>RBAC Console</h2>
+            <div class="sub">Sign in with RBAC credentials to manage roles and security.</div>
+            <div class="field"><label>Email</label><input id="rbacEmail" placeholder="admin@example.com"></div>
+            <div class="field"><label>Password</label><input type="password" id="rbacPassword" placeholder="Password"></div>
+            <div class="btn-row">
+              <button class="btn btn-a" onclick="rbacLogin()">RBAC Login</button>
+              <button class="btn btn-s" onclick="rbacLogout()">RBAC Logout</button>
+              <button class="btn btn-s" onclick="rbacRefresh()">Refresh RBAC Data</button>
+            </div>
+            <div id="rbacStatus" class="res-box">Not connected.</div>
+            <div id="rbac2fa" style="display:none">
+              <div class="field"><label>2FA Code</label><input id="rbac2faCode" placeholder="123456"></div>
+              <div class="btn-row">
+                <button class="btn btn-a" onclick="rbacVerify2fa()">Verify 2FA</button>
+                <button class="btn btn-s" onclick="rbacSetup2fa()">Setup 2FA</button>
+              </div>
+              <div id="rbac2faSecret" class="res-box">Use the setup button to generate a secret.</div>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>RBAC Dashboard</h2>
+            <div class="sub">System overview (RBAC).</div>
+            <div class="admin-kv">
+              <div class="kv"><div class="k">Users</div><div class="v" id="rbacUserCount">0</div></div>
+              <div class="kv"><div class="k">Active</div><div class="v" id="rbacActiveCount">0</div></div>
+              <div class="kv"><div class="k">AI Threshold</div><div class="v" id="rbacThresholdVal">—</div></div>
+              <div class="kv"><div class="k">LLM Mode</div><div class="v" id="rbacLlmModeVal">—</div></div>
+            </div>
+            <div class="google-note" id="rbacMoodDist">No data yet.</div>
+          </div>
+
+          <div class="c mt">
+            <h2>RBAC Users</h2>
+            <div class="sub">Manage accounts (block, reset, delete inactive).</div>
+            <div class="field"><label>User Email</label><input id="rbacUserEmail" placeholder="user@example.com"></div>
+            <div class="btn-row">
+              <button class="btn btn-s" onclick="rbacBlockUser('blocked')">Block</button>
+              <button class="btn btn-s" onclick="rbacBlockUser('active')">Unblock</button>
+              <button class="btn btn-s" onclick="rbacResetPassword()">Reset Password</button>
+              <button class="btn btn-s" onclick="rbacDeleteInactive()">Delete Inactive</button>
+            </div>
+            <div id="rbacUserAction" class="auth-err"></div>
+            <div class="table-wrap">
+              <table class="admin-table" id="rbacUsersTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>RBAC Flags</h2>
+            <div class="sub">Flagged high-risk or inappropriate content.</div>
+            <div class="table-wrap">
+              <table class="admin-table" id="rbacFlagsTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>RBAC Logs</h2>
+            <div class="sub">Admin/moderator activity logs.</div>
+            <div class="table-wrap">
+              <table class="admin-table" id="rbacLogsTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>RBAC Settings</h2>
+            <div class="sub">Adjust system settings.</div>
+            <div class="field"><label>AI Threshold</label><input id="rbacThreshold" type="number" step="0.05" min="0.1"
+                max="0.99" value="0.7"></div>
+            <div class="field">
+              <label>LLM Mode</label>
+              <select id="rbacLlmMode">
+                <option value="llm">LLM</option>
+                <option value="mock">Mock</option>
+              </select>
+            </div>
+            <div class="field"><label>Model Accuracy</label><input id="rbacModelAcc" placeholder="e.g. 0.86"></div>
+            <div class="btn-row">
+              <button class="btn btn-a" onclick="rbacSaveSettings()">Save Settings</button>
+              <button class="btn btn-s" onclick="rbacToggle2fa()">Toggle 2FA Enforce</button>
+              <button class="btn btn-s" onclick="rbacToggleLock()">Toggle System Lock</button>
+            </div>
+            <div id="rbacSettingsMsg" class="auth-err"></div>
+          </div>
+
+          <div class="c mt">
+            <h2>Super Admin</h2>
+            <div class="sub">Create admins, assign roles, backup and restore.</div>
+            <div class="field"><label>New Admin Email</label><input id="rbacNewAdminEmail" placeholder="admin@domain.com"></div>
+            <div class="field"><label>New Admin Password</label><input type="password" id="rbacNewAdminPass"
+                placeholder="Strong password"></div>
+            <div class="field"><label>Roles (comma)</label><input id="rbacNewAdminRoles" value="admin"></div>
+            <div class="btn-row">
+              <button class="btn btn-s" onclick="rbacCreateAdmin()">Create Admin</button>
+            </div>
+            <div class="field"><label>Assign Roles (email)</label><input id="rbacAssignEmail" placeholder="user@example.com"></div>
+            <div class="field"><label>Roles (comma)</label><input id="rbacAssignRoles" value="moderator"></div>
+            <div class="btn-row">
+              <button class="btn btn-s" onclick="rbacAssignRoles()">Assign Roles</button>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-s" onclick="rbacBackup()">Backup (Encrypted)</button>
+              <button class="btn btn-s" onclick="rbacRestore()">Restore (Encrypted)</button>
+            </div>
+            <textarea id="rbacBackupPayload" class="gi" placeholder="Paste backup payload here..."></textarea>
+            <div id="rbacSuperMsg" class="auth-err"></div>
+          </div>
+
+          <div class="c mt">
+            <h2>AI Responses</h2>
+            <div class="sub">Quick view of responses and prompts.</div>
+            <div class="field"><label>Filter</label><input id="adminFilter" placeholder="Search responses..."
+                oninput="filterAdminResponses()"></div>
+            <div class="table-wrap">
+              <table class="admin-table" id="adminResponsesTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>Text Sessions</h2>
+            <div class="table-wrap">
+              <table class="admin-table" id="adminTextTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>Visual Sessions</h2>
+            <div class="table-wrap">
+              <table class="admin-table" id="adminVisualTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>Overall Sessions</h2>
+            <div class="table-wrap">
+              <table class="admin-table" id="adminOverallTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>Users</h2>
+            <div class="sub">All users who logged in.</div>
+            <div class="table-wrap">
+              <table class="admin-table" id="adminUsersTable"></table>
+            </div>
+          </div>
+
+          <div class="c mt">
+            <h2>Activity Log</h2>
+            <div class="sub">Recent user actions across the app.</div>
+            <div class="field"><label>Filter</label><input id="adminActivityFilter" placeholder="Search activity..."
+                oninput="filterAdminActivity()"></div>
+            <div class="table-wrap">
+              <table class="admin-table" id="adminActivityTable"></table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+  <script>
+    let mediaStream = null, inferTimer = null, visualSamples = [], curPage = 'dash', llmOnline = false;
+    let lastTextSavedAt = 0, lastVideoSavedAt = 0, lastFuseKey = '', fuseInFlight = false;
+    let calMonth = new Date().getMonth();
+    let calYear = new Date().getFullYear();
+    const MC = { happy: '#00b894', neutral: '#6c5ce7', sad: '#74b9ff', angry: '#ff7675', fear: '#fdcb6e', surprise: '#00cec9', contempt: '#a29bfe', disgust: '#e17055', anxious: '#fab1a0', good: '#00b894', okay: '#6c5ce7', not_great: '#e84393' };
+    const ME = { happy: '😊', neutral: '😐', sad: '😔', angry: '😠', fear: '😨', surprise: '😲', contempt: '😒', disgust: '🤢', anxious: '😰', good: '😊', okay: '😐', not_great: '😔' };
+    const PAGES = ['dash', 'checkin', 'chat', 'summary', 'calendar', 'insights', 'goals', 'profile', 'settings', 'admin'];
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMhjQTkuGgu1l27DIBZb9CNBzC-U8p2b8",
+      authDomain: "moodsense-5715e.firebaseapp.com",
+      projectId: "moodsense-5715e",
+      storageBucket: "moodsense-5715e.firebasestorage.app",
+      messagingSenderId: "638521153953",
+      appId: "1:638521153953:web:18ce5e43ed7c2edb8893e0",
+      measurementId: "G-T9Y2FNWS9F"
+    };
+    let firebaseAuth = null;
+    let googleProvider = null;
+    let pendingDisplayName = '';
+    let adminData = null;
+    let adminEmail = '';
+    let rbacToken = localStorage.getItem('rbac_token') || '';
+    let rbacRoles = JSON.parse(localStorage.getItem('rbac_roles') || '[]');
+    let rbacTempToken = localStorage.getItem('rbac_temp_token') || '';
+
+    function syncFirebaseUser(user, fallbackName) {
+      if (!user) return;
+      const providerId = user.providerData && user.providerData[0] ? user.providerData[0].providerId : 'password';
+      const provider = providerId && providerId.indexOf('google') !== -1 ? 'google' : 'password';
+      const createdAt = user.metadata && user.metadata.creationTime
+        ? new Date(user.metadata.creationTime)
+        : new Date();
+      const existing = JSON.parse(localStorage.getItem('ms_u') || 'null');
+      const hue = existing && typeof existing.hue === 'number'
+        ? existing.hue
+        : Math.floor(Math.random() * 360);
+      const name = user.displayName || fallbackName || (user.email ? user.email.split('@')[0] : 'User');
+      if (existing && existing.email && existing.email !== (user.email || '')) {
+        localStorage.setItem('ms_ck', '[]');
+      }
+      localStorage.setItem('ms_u', JSON.stringify({
+        name,
+        email: user.email || '',
+        provider,
+        created: createdAt.toISOString(),
+        hue,
+      }));
+      if (!localStorage.getItem('ms_ck')) localStorage.setItem('ms_ck', '[]');
+      fetch('/auth/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email || '',
+          name,
+          provider,
+          created_at: createdAt.toISOString(),
+        }),
+      }).catch(() => { });
+    }
+
+    function isAdminUser(user) {
+      if (!user || !adminEmail) return false;
+      const email = (user.email || '').toLowerCase();
+      return email && email === adminEmail;
+    }
+
+    function updateAdminNav() {
+      const nav = document.getElementById('navAdmin');
+      if (!nav) return;
+      const user = firebaseAuth ? firebaseAuth.currentUser : null;
+      const ok = isAdminUser(user);
+      nav.style.display = ok ? 'flex' : 'none';
+      if (!ok && curPage === 'admin') {
+        goTo('dash');
+      }
+    }
+
+    function loadAdminConfig() {
+      fetch('/admin/config')
+        .then(r => r.json())
+        .then(d => {
+          adminEmail = (d && d.admin_email ? d.admin_email : '').toLowerCase();
+          updateAdminNav();
+        })
+        .catch(() => {
+          adminEmail = '';
+          updateAdminNav();
+        });
+    }
+
+    function initFirebase() {
+      if (!window.firebase) return false;
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        firebaseAuth = firebase.auth();
+        googleProvider = new firebase.auth.GoogleAuthProvider();
+        firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(() => { });
+
+        firebaseAuth.onAuthStateChanged((user) => {
+          if (user) {
+            syncFirebaseUser(user, pendingDisplayName);
+            pendingDisplayName = '';
+            enter();
+            updateAdminNav();
+            return;
+          }
+
+          const u = JSON.parse(localStorage.getItem('ms_u') || 'null');
+          if (u && (u.provider === 'google' || u.provider === 'password')) {
+            localStorage.removeItem('ms_u');
+            localStorage.removeItem('ms_ck');
+            document.getElementById('appShell').style.display = 'none';
+            document.getElementById('authPage').style.display = 'flex';
+            showTab(u.provider === 'google' ? 'g' : 'si');
+            updateAdminNav();
+            return;
+          }
+        });
+
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    // AUTH
+    function showTab(t) {
+      // Show sign-in form when tab is "si".
+      document.getElementById('siForm').style.display = t === 'si' ? 'block' : 'none';
+      // Show sign-up form when tab is "su".
+      document.getElementById('suForm').style.display = t === 'su' ? 'block' : 'none';
+      // Show Google form when tab is "g".
+      document.getElementById('gForm').style.display = t === 'g' ? 'block' : 'none';
+      // Highlight active tab button.
+      document.getElementById('tabSI').classList.toggle('active', t === 'si');
+      document.getElementById('tabSU').classList.toggle('active', t === 'su');
+      document.getElementById('tabG').classList.toggle('active', t === 'g');
+    }
+
+    function doSignUp() {
+      // Read and clean values from sign-up inputs.
+      const n = document.getElementById('rN').value.trim();
+      const e = document.getElementById('rE').value.trim();
+      const p = document.getElementById('rP').value;
+      const p2 = document.getElementById('rP2').value;
+      const err = document.getElementById('rErr');
+
+      // Basic validation: all required fields.
+      if (!n || !e || !p) {
+        err.textContent = 'Fill all fields.';
+        return;
+      }
+      if (!firebaseAuth) {
+        err.textContent = 'Firebase not ready. Refresh the page.';
+        return;
+      }
+      // Basic validation: minimum password length.
+      if (p.length < 6) {
+        err.textContent = 'Min 6 chars.';
+        return;
+      }
+      // Basic validation: passwords must match.
+      if (p !== p2) {
+        err.textContent = 'Passwords don\'t match.';
+        return;
+      }
+
+      pendingDisplayName = n;
+      err.textContent = '';
+      firebaseAuth.createUserWithEmailAndPassword(e, p)
+        .then((cred) => {
+          if (cred && cred.user && n) {
+            return cred.user.updateProfile({ displayName: n });
+          }
+          return null;
+        })
+        .catch((e) => {
+          err.textContent = e && e.message ? e.message : 'Sign up failed.';
+        });
+    }
+
+    function doSignIn() {
+      // Read login form values.
+      const e = document.getElementById('liE').value.trim();
+      const p = document.getElementById('liP').value;
+      const err = document.getElementById('liErr');
+
+      if (!e || !p) {
+        err.textContent = 'Enter email and password.';
+        return;
+      }
+      if (!firebaseAuth) {
+        err.textContent = 'Firebase not ready. Refresh the page.';
+        return;
+      }
+
+      err.textContent = '';
+      firebaseAuth.signInWithEmailAndPassword(e, p)
+        .catch((e) => {
+          err.textContent = e && e.message ? e.message : 'Invalid credentials.';
+        });
+    }
+
+    function doGoogleSignIn() {
+      const err = document.getElementById('gErr');
+      if (!firebaseAuth || !googleProvider) {
+        err.textContent = 'Google sign-in is not ready. Refresh the page.';
+        return;
+      }
+
+      err.textContent = '';
+      firebaseAuth.signInWithPopup(googleProvider).catch((e) => {
+        err.textContent = e && e.message ? e.message : 'Google sign-in failed.';
+      });
+    }
+
+    function doLogout() {
+      if (firebaseAuth && firebaseAuth.currentUser) {
+        firebaseAuth.signOut().catch(() => { });
+      }
+      localStorage.removeItem('ms_u');
+      localStorage.removeItem('ms_ck');
+      // Hide app and show auth screen.
+      document.getElementById('appShell').style.display = 'none';
+      document.getElementById('authPage').style.display = 'flex';
+      // Default to sign-in tab after logout.
+      showTab('si');
+    }
+
+    function enter() {
+      // Hide auth screen and show app shell.
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('appShell').style.display = 'flex';
+      // Refresh UI values and open dashboard.
+      updUI();
+      updDash();
+      goTo('dash');
+    }
+    function updUI() {
+      const u = JSON.parse(localStorage.getItem('ms_u') || '{}'), ini = (u.name || 'U')[0].toUpperCase(), h = u.hue || 280, g = `linear-gradient(135deg,hsl(${h},70%,50%),hsl(${(h + 50) % 360},70%,50%))`;
+      ['sbAv', 'pfAv'].forEach(id => { const el = document.getElementById(id); el.textContent = ini; el.style.background = g });
+      document.getElementById('sbN').textContent = u.name || 'User'; document.getElementById('sbE').textContent = u.email || '';
+      document.getElementById('pfN').textContent = u.name || 'User'; document.getElementById('pfEm').textContent = u.email || '';
+      const cr = u.created ? new Date(u.created).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '—';
+      document.getElementById('pfSince').textContent = 'Since ' + cr;
+      const hr = new Date().getHours(), gr = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+      document.getElementById('greet').textContent = `${gr}, ${(u.name || 'User').split(' ')[0]} 👋`;
+      document.getElementById('topTotal').textContent = getCK().length;
+    }
+
+    // NAV
+    function goTo(p) {
+      if (p === 'admin') {
+        const user = firebaseAuth ? firebaseAuth.currentUser : null;
+        if (!isAdminUser(user)) {
+          const err = document.getElementById('adminErr');
+          if (err) err.textContent = 'Admin access required.';
+          p = 'dash';
+        }
+      }
+      // Store current page key.
+      curPage = p;
+      // Hide all pages first.
+      document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+      // Build page element id from key (e.g., "dash" -> "pageDash").
+      const el = document.getElementById('page' + p.charAt(0).toUpperCase() + p.slice(1));
+      // Show target page if found.
+      if (el) el.classList.add('active');
+      // Update sidebar active link style.
+      document.querySelectorAll('.sidebar nav a').forEach((a, i) => a.classList.toggle('active', PAGES[i] === p));
+      // Refresh data for pages that need it.
+      if (p === 'dash') updDash();
+      if (p === 'summary') updSummary();
+      if (p === 'calendar') updCalendar();
+      if (p === 'insights') renderInsights();
+      if (p === 'goals') updGoals();
+      if (p === 'profile') updProfile();
+      // Close sidebar on mobile after navigation.
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    function togSB() {
+      // Open/close sidebar on small screens.
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // DATA
+    function getCK() {
+      // Read check-ins list from localStorage.
+      return JSON.parse(localStorage.getItem('ms_ck') || '[]');
+    }
+
+    function addCK(type, mood, note) {
+      // Load current check-ins.
+      const l = getCK();
+      // Add new check-in entry.
+      l.push({ type, mood, note: note || '', ts: new Date().toISOString() });
+      // Save back to localStorage.
+      localStorage.setItem('ms_ck', JSON.stringify(l));
+      // Update top bar total counter.
+      document.getElementById('topTotal').textContent = l.length;
+    }
+
+    function getStreak() {
+      // Count number of consecutive days with at least one check-in.
+      const ck = getCK();
+      let s = 0;
+      let d = new Date();
+      for (let i = 0; i < 365; i++) {
+        if (ck.some(c => new Date(c.ts).toDateString() === d.toDateString())) {
+          s++;
+          d.setDate(d.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+      return s;
+    }
+
+    function getMF(arr) {
+      // Build frequency map and return sorted entries (most frequent first).
+      const c = {};
+      arr.forEach(v => c[v] = (c[v] || 0) + 1);
+      return Object.entries(c).sort((a, b) => b[1] - a[1]);
+    }
+
+    function getAIHistory() {
+      return JSON.parse(localStorage.getItem('ms_ai_history') || '[]');
+    }
+
+    function addAIHistory(type, input, response, source) {
+      const l = getAIHistory();
+      l.push({
+        type: type || 'unknown',
+        input: input || '',
+        response: response || '',
+        source: source || 'fallback',
+        ts: new Date().toISOString(),
+      });
+      const trimmed = l.slice(-300);
+      localStorage.setItem('ms_ai_history', JSON.stringify(trimmed));
+      if (curPage === 'insights') renderInsights();
+    }
+
+    function renderInsights() {
+      const list = document.getElementById('insightList');
+      if (!list) return;
+      const filter = document.getElementById('insightFilter');
+      const q = (filter ? filter.value : '').trim().toLowerCase();
+      const rows = getAIHistory().slice().reverse();
+      const filtered = q
+        ? rows.filter(r => JSON.stringify(r).toLowerCase().includes(q))
+        : rows;
+      if (!filtered.length) {
+        list.innerHTML = '<div class="admin-empty">No insights yet.</div>';
+        return;
+      }
+      list.innerHTML = filtered.map(r => {
+        const ts = new Date(r.ts || '').toLocaleString('en-US');
+        return `<div class="insight-item">
+          <div class="it">${escHtml(r.type || 'insight')} • ${escHtml(r.source || 'fallback')} • ${escHtml(ts)}</div>
+          <div class="iv"><b>Input:</b> ${escHtml(truncateText(r.input, 200))}</div>
+          <div class="iv" style="margin-top:6px"><b>Response:</b> ${escHtml(truncateText(r.response, 260))}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function getGoals() {
+      return JSON.parse(localStorage.getItem('ms_goals') || '{"weekly":5,"streak":7}');
+    }
+
+    function saveGoals() {
+      const weekly = Math.max(1, Math.min(14, parseInt(document.getElementById('goalWeekly').value, 10) || 5));
+      const streak = Math.max(3, Math.min(60, parseInt(document.getElementById('goalStreak').value, 10) || 7));
+      localStorage.setItem('ms_goals', JSON.stringify({ weekly, streak }));
+      const res = document.getElementById('goalRes');
+      if (res) res.textContent = 'Goals saved.';
+      updGoals();
+    }
+
+    function updGoals() {
+      const goals = getGoals();
+      const weeklyInput = document.getElementById('goalWeekly');
+      const streakInput = document.getElementById('goalStreak');
+      if (weeklyInput) weeklyInput.value = goals.weekly;
+      if (streakInput) streakInput.value = goals.streak;
+      const ck = getCK();
+      const weekCount = ck.filter(c => (Date.now() - new Date(c.ts)) / 86400000 < 7).length;
+      document.getElementById('goalWeekVal').textContent = `${weekCount}/${goals.weekly}`;
+      document.getElementById('goalStreakVal').textContent = `${getStreak()}/${goals.streak}`;
+    }
+
+    function getReminder() {
+      return JSON.parse(localStorage.getItem('ms_reminder') || '{"time":"20:00","enabled":false,"last_fired":""}');
+    }
+
+    function saveReminder() {
+      const time = document.getElementById('reminderTime').value || '20:00';
+      const enabled = document.getElementById('reminderEnabled').value === 'true';
+      const reminder = getReminder();
+      reminder.time = time;
+      reminder.enabled = enabled;
+      localStorage.setItem('ms_reminder', JSON.stringify(reminder));
+      const res = document.getElementById('reminderRes');
+      if (enabled && 'Notification' in window && Notification.permission !== 'granted') {
+        Notification.requestPermission().then(() => {
+          if (res) res.textContent = 'Reminder saved. Notifications enabled.';
+        }).catch(() => {
+          if (res) res.textContent = 'Reminder saved. Please allow notifications.';
+        });
+      } else {
+        if (res) res.textContent = 'Reminder saved.';
+      }
+    }
+
+    function loadReminder() {
+      const reminder = getReminder();
+      const t = document.getElementById('reminderTime');
+      const e = document.getElementById('reminderEnabled');
+      if (t) t.value = reminder.time || '20:00';
+      if (e) e.value = reminder.enabled ? 'true' : 'false';
+    }
+
+    function checkReminderTick() {
+      const reminder = getReminder();
+      if (!reminder.enabled) return;
+      if (!('Notification' in window)) return;
+      const now = new Date();
+      const hm = now.toTimeString().slice(0, 5);
+      const today = now.toDateString();
+      if (hm === reminder.time && reminder.last_fired !== today) {
+        if (Notification.permission === 'granted') {
+          new Notification('MoodSense Reminder', { body: 'Time for a quick check-in.' });
+          reminder.last_fired = today;
+          localStorage.setItem('ms_reminder', JSON.stringify(reminder));
+        }
+      }
+    }
+
+    function downloadPersonal() {
+      const data = {
+        user: JSON.parse(localStorage.getItem('ms_u') || 'null'),
+        checkins: getCK(),
+        ai_history: getAIHistory(),
+        goals: getGoals(),
+        reminder: getReminder(),
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `moodsense-personal-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // ADMIN
+    function truncateText(v, maxLen) {
+      const t = String(v || '');
+      if (t.length <= maxLen) return t;
+      return t.slice(0, maxLen - 3) + '...';
+    }
+
+    function renderAdminTable(tableId, rows, columns, emptyMsg) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const cols = columns || [];
+      if (!rows || !rows.length) {
+        const head = cols.map(c => `<th>${escHtml(c[1])}</th>`).join('');
+        table.innerHTML = `<thead><tr>${head}</tr></thead><tbody><tr><td colspan="${cols.length}" class="admin-empty">${escHtml(emptyMsg || 'No data')}</td></tr></tbody>`;
+        return;
+      }
+      const head = cols.map(c => `<th>${escHtml(c[1])}</th>`).join('');
+      const body = rows.map(r => {
+        return `<tr>${cols.map(c => `<td>${escHtml(truncateText(r[c[0]], c[2] || 160))}</td>`).join('')}</tr>`;
+      }).join('');
+      table.innerHTML = `<thead><tr>${head}</tr></thead><tbody>${body}</tbody>`;
+    }
+
+    function renderAdmin() {
+      if (!adminData) return;
+      const counts = adminData.counts || {};
+      document.getElementById('adminTextCount').textContent = counts.text_sessions || 0;
+      document.getElementById('adminVisualCount').textContent = counts.visual_sessions || 0;
+      document.getElementById('adminOverallCount').textContent = counts.overall_sessions || 0;
+      document.getElementById('adminRespCount').textContent = counts.responses || 0;
+      const usersCount = document.getElementById('adminUsersCount');
+      if (usersCount) usersCount.textContent = counts.users || 0;
+      const activityCount = document.getElementById('adminActivityCount');
+      if (activityCount) activityCount.textContent = counts.activity || 0;
+      document.getElementById('adminUpdated').textContent = 'Last updated ' + new Date().toLocaleString('en-US');
+
+      const responses = adminData.responses || [];
+      const overall = adminData.overall_sessions || [];
+      const aiCount = responses.filter(r => {
+        const s = String(r.source || '').toLowerCase();
+        return s && !['fallback', 'none', 'error', 'unavailable'].includes(s);
+      }).length;
+      const fallbackCount = responses.filter(r => {
+        const s = String(r.source || '').toLowerCase();
+        return !s || ['fallback', 'none', 'error', 'unavailable'].includes(s);
+      }).length;
+      const highCount = overall.filter(r => String(r.severity || '').toLowerCase() === 'high').length;
+      const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+      const weekCount = overall.filter(r => {
+        const t = new Date(r.timestamp || '');
+        return !isNaN(t) && t >= weekAgo;
+      }).length;
+      const aiEl = document.getElementById('adminAiCount'); if (aiEl) aiEl.textContent = aiCount;
+      const fbEl = document.getElementById('adminFallbackCount'); if (fbEl) fbEl.textContent = fallbackCount;
+      const hiEl = document.getElementById('adminHighCount'); if (hiEl) hiEl.textContent = highCount;
+      const wkEl = document.getElementById('adminWeekCount'); if (wkEl) wkEl.textContent = weekCount;
+
+      renderAdminTable(
+        'adminTextTable',
+        adminData.text_sessions || [],
+        [['session_id', 'ID'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['timestamp', 'Timestamp']],
+        'No text sessions yet.'
+      );
+      renderAdminTable(
+        'adminVisualTable',
+        adminData.visual_sessions || [],
+        [['session_id', 'ID'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['timestamp', 'Timestamp']],
+        'No visual sessions yet.'
+      );
+      renderAdminTable(
+        'adminOverallTable',
+        adminData.overall_sessions || [],
+        [['session_id', 'ID'], ['overall_mood', 'Mood'], ['overall_confidence', 'Confidence'], ['severity', 'Severity'], ['timestamp', 'Timestamp']],
+        'No overall sessions yet.'
+      );
+      renderAdminTable(
+        'adminUsersTable',
+        adminData.users || [],
+        [['email', 'Email'], ['name', 'Name'], ['provider', 'Provider'], ['created_at', 'Created'], ['first_login', 'First Login'], ['last_login', 'Last Login'], ['logins', 'Logins']],
+        'No users yet.'
+      );
+      if (!rbacToken) {
+        renderAdminTable(
+          'adminActivityTable',
+          adminData.activity || [],
+          [['timestamp', 'Timestamp'], ['email', 'Email'], ['event_type', 'Event'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['detail', 'Detail']],
+          'No activity yet.'
+        );
+      }
+
+      filterAdminResponses();
+      if (!rbacToken) filterAdminActivity();
+    }
+
+    function filterAdminResponses() {
+      const filter = document.getElementById('adminFilter');
+      const q = (filter ? filter.value : '').trim().toLowerCase();
+      const rows = (adminData && adminData.responses) ? adminData.responses : [];
+      const filtered = q
+        ? rows.filter(r => JSON.stringify(r).toLowerCase().includes(q))
+        : rows;
+      renderAdminTable(
+        'adminResponsesTable',
+        filtered,
+        [['timestamp', 'Timestamp'], ['type', 'Type'], ['input', 'Input'], ['response', 'Response'], ['source', 'Source'], ['meta', 'Meta']],
+        'No responses yet.'
+      );
+    }
+
+    function filterAdminActivity() {
+      const filter = document.getElementById('adminActivityFilter');
+      const q = (filter ? filter.value : '').trim().toLowerCase();
+      const rows = (adminData && adminData.activity) ? adminData.activity : [];
+      const filtered = q
+        ? rows.filter(r => JSON.stringify(r).toLowerCase().includes(q))
+        : rows;
+      renderAdminTable(
+        'adminActivityTable',
+        filtered,
+        [['timestamp', 'Timestamp'], ['email', 'Email'], ['event_type', 'Event'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['detail', 'Detail']],
+        'No activity yet.'
+      );
+    }
+
+    function loadAdmin() {
+      const err = document.getElementById('adminErr');
+      const keyInput = document.getElementById('adminKeyInput');
+      const limitInput = document.getElementById('adminLimit');
+      if (err) err.textContent = '';
+      const key = keyInput ? keyInput.value.trim() : '';
+      const limit = Math.max(1, Math.min(5000, parseInt(limitInput ? limitInput.value : '200', 10) || 200));
+      if (key) localStorage.setItem('ms_admin_key', key);
+
+      const headers = {};
+      if (key) headers['X-Admin-Key'] = key;
+      const user = firebaseAuth ? firebaseAuth.currentUser : null;
+      if (user && user.email) headers['X-Admin-Email'] = user.email;
+      fetch(`/admin/data?limit=${limit}`, { headers })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) {
+            if (err) err.textContent = data && data.error ? data.error : 'Unauthorized.';
+            return;
+          }
+          adminData = data;
+          renderAdmin();
+        })
+        .catch(() => {
+          if (err) err.textContent = 'Failed to load admin data.';
+        });
+    }
+
+    function clearAdmin() {
+      adminData = null;
+      document.getElementById('adminTextCount').textContent = '0';
+      document.getElementById('adminVisualCount').textContent = '0';
+      document.getElementById('adminOverallCount').textContent = '0';
+      document.getElementById('adminRespCount').textContent = '0';
+      const usersCount = document.getElementById('adminUsersCount');
+      if (usersCount) usersCount.textContent = '0';
+      const activityCount = document.getElementById('adminActivityCount');
+      if (activityCount) activityCount.textContent = '0';
+      ['adminAiCount', 'adminFallbackCount', 'adminHighCount', 'adminWeekCount'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '0';
+      });
+      document.getElementById('adminUpdated').textContent = 'Not loaded yet.';
+      renderAdminTable('adminTextTable', [], [['session_id', 'ID'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['timestamp', 'Timestamp']], 'No data');
+      renderAdminTable('adminVisualTable', [], [['session_id', 'ID'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['timestamp', 'Timestamp']], 'No data');
+      renderAdminTable('adminOverallTable', [], [['session_id', 'ID'], ['overall_mood', 'Mood'], ['overall_confidence', 'Confidence'], ['severity', 'Severity'], ['timestamp', 'Timestamp']], 'No data');
+      renderAdminTable('adminResponsesTable', [], [['timestamp', 'Timestamp'], ['type', 'Type'], ['input', 'Input'], ['response', 'Response'], ['source', 'Source'], ['meta', 'Meta']], 'No data');
+      renderAdminTable('adminUsersTable', [], [['email', 'Email'], ['name', 'Name'], ['provider', 'Provider'], ['created_at', 'Created'], ['first_login', 'First Login'], ['last_login', 'Last Login'], ['logins', 'Logins']], 'No data');
+      renderAdminTable('adminActivityTable', [], [['timestamp', 'Timestamp'], ['email', 'Email'], ['event_type', 'Event'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['detail', 'Detail']], 'No data');
+      const err = document.getElementById('adminErr');
+      if (err) err.textContent = '';
+    }
+
+    function toCsv(rows) {
+      if (!rows || !rows.length) return '';
+      const headers = Object.keys(rows[0]);
+      const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+      const lines = [headers.join(',')];
+      rows.forEach(r => {
+        lines.push(headers.map(h => esc(r[h])).join(','));
+      });
+      return lines.join('\n');
+    }
+
+    function downloadAdmin(format, dataset) {
+      const err = document.getElementById('adminErr');
+      if (!adminData) {
+        if (err) err.textContent = 'Load data first.';
+        return;
+      }
+      if (format === 'json') {
+        const blob = new Blob([JSON.stringify(adminData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `moodsense-admin-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        return;
+      }
+      if (format === 'csv' && dataset) {
+        const rows = adminData[dataset] || [];
+        const csv = toCsv(rows);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `moodsense-${dataset}-${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    // RBAC
+    function setRbacSession(token, roles) {
+      rbacToken = token || '';
+      rbacRoles = roles || [];
+      if (rbacToken) {
+        localStorage.setItem('rbac_token', rbacToken);
+        localStorage.setItem('rbac_roles', JSON.stringify(rbacRoles));
+      } else {
+        localStorage.removeItem('rbac_token');
+        localStorage.removeItem('rbac_roles');
+      }
+    }
+
+    function setRbacTempToken(token) {
+      rbacTempToken = token || '';
+      if (rbacTempToken) localStorage.setItem('rbac_temp_token', rbacTempToken);
+      else localStorage.removeItem('rbac_temp_token');
+    }
+
+    function rbacHeaders(useTemp) {
+      const token = useTemp ? rbacTempToken : rbacToken;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      return headers;
+    }
+
+    function setRbacStatus(msg, ok) {
+      const el = document.getElementById('rbacStatus');
+      if (el) el.textContent = msg;
+      el && (el.style.borderLeftColor = ok ? 'var(--green)' : 'var(--coral)');
+    }
+
+    function rbacLogin() {
+      const email = document.getElementById('rbacEmail').value.trim();
+      const pass = document.getElementById('rbacPassword').value.trim();
+      if (!email || !pass) {
+        setRbacStatus('Enter RBAC email and password.', false);
+        return;
+      }
+      fetch('/rbac/auth/login', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ email, password: pass }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) {
+            setRbacStatus(data.error || 'Login failed.', false);
+            return;
+          }
+          if (data['2fa_required']) {
+            setRbacTempToken(data.temp_token || '');
+            document.getElementById('rbac2fa').style.display = 'block';
+            setRbacStatus('2FA required. Enter code.', true);
+            if (data.setup_required) {
+              document.getElementById('rbac2faSecret').textContent = 'Setup required. Click "Setup 2FA".';
+            }
+            return;
+          }
+          rbac2faEnforced = !!data.enforce_2fa;
+          setRbacSession(data.token || '', data.roles || []);
+          setRbacTempToken('');
+          document.getElementById('rbac2fa').style.display = 'none';
+          setRbacStatus('RBAC connected: ' + (data.roles || []).join(', '), true);
+          rbacRefresh();
+        })
+        .catch(() => setRbacStatus('RBAC login failed.', false));
+    }
+
+    function rbacVerify2fa() {
+      const code = document.getElementById('rbac2faCode').value.trim();
+      if (!rbacTempToken) {
+        setRbacStatus('Missing 2FA token. Login again.', false);
+        return;
+      }
+      fetch('/rbac/auth/2fa/verify', {
+        method: 'POST',
+        headers: rbacHeaders(true),
+        body: JSON.stringify({ code }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) {
+            setRbacStatus(data.error || '2FA verification failed.', false);
+            return;
+          }
+          setRbacSession(data.token || '', data.roles || []);
+          setRbacTempToken('');
+          document.getElementById('rbac2fa').style.display = 'none';
+          setRbacStatus('RBAC connected: ' + (data.roles || []).join(', '), true);
+          rbacRefresh();
+        })
+        .catch(() => setRbacStatus('2FA verification failed.', false));
+    }
+
+    function rbacSetup2fa() {
+      if (!rbacTempToken) {
+        setRbacStatus('Missing 2FA token. Login again.', false);
+        return;
+      }
+      fetch('/rbac/auth/2fa/setup', {
+        method: 'POST',
+        headers: rbacHeaders(true),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) {
+            setRbacStatus(data.error || '2FA setup failed.', false);
+            return;
+          }
+          const box = document.getElementById('rbac2faSecret');
+          if (box) {
+            box.textContent = `Secret: ${data.secret} | OTPAuth: ${data.otpauth_url}`;
+          }
+          setRbacStatus('2FA secret generated. Verify with code.', true);
+        })
+        .catch(() => setRbacStatus('2FA setup failed.', false));
+    }
+
+    function rbacLogout() {
+      setRbacSession('', []);
+      setRbacTempToken('');
+      setRbacStatus('Logged out.', true);
+    }
+
+    function rbacRefresh() {
+      if (!rbacToken) {
+        setRbacStatus('RBAC login required.', false);
+        return;
+      }
+      rbacLoadDashboard();
+      rbacLoadUsers();
+      rbacLoadFlags();
+      rbacLoadLogs();
+      rbacLoadActivity();
+    }
+
+    function rbacLoadDashboard() {
+      fetch('/rbac/admin/dashboard', { headers: rbacHeaders() })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) return;
+          document.getElementById('rbacUserCount').textContent = data.user_count.total || 0;
+          document.getElementById('rbacActiveCount').textContent = data.user_count.active || 0;
+          document.getElementById('rbacThresholdVal').textContent = data.ai_threshold || '—';
+          document.getElementById('rbacLlmModeVal').textContent = data.llm_mode || '—';
+          const dist = data.mood_distribution || {};
+          const distTxt = Object.keys(dist).length
+            ? Object.entries(dist).map(([k, v]) => `${k}: ${v}`).join(' | ')
+            : 'No distribution data yet.';
+          document.getElementById('rbacMoodDist').textContent = distTxt;
+          const th = document.getElementById('rbacThreshold'); if (th) th.value = data.ai_threshold || '0.7';
+          const lm = document.getElementById('rbacLlmMode'); if (lm) lm.value = data.llm_mode || 'llm';
+        });
+    }
+
+    function rbacLoadUsers() {
+      fetch('/rbac/admin/users?limit=200', { headers: rbacHeaders() })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) return;
+          const rows = data || [];
+          const table = rows.map(u => ({
+            email: u.email,
+            roles: (u.roles || []).join(','),
+            status: u.status,
+            last_login: u.last_login || '',
+          }));
+          renderAdminTable(
+            'rbacUsersTable',
+            table,
+            [['email', 'Email'], ['roles', 'Roles'], ['status', 'Status'], ['last_login', 'Last Login']],
+            'No RBAC users.'
+          );
+        });
+    }
+
+    function rbacLoadFlags() {
+      fetch('/rbac/moderator/flags', { headers: rbacHeaders() })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) return;
+          renderAdminTable(
+            'rbacFlagsTable',
+            data || [],
+            [['id', 'ID'], ['anon_id', 'Anon ID'], ['severity', 'Severity'], ['content_snippet', 'Snippet'], ['status', 'Status']],
+            'No flags.'
+          );
+        });
+    }
+
+    function rbacLoadLogs() {
+      fetch('/rbac/admin/logs', { headers: rbacHeaders() })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) return;
+          renderAdminTable(
+            'rbacLogsTable',
+            data || [],
+            [['created_at', 'Time'], ['actor_role', 'Role'], ['action', 'Action'], ['target', 'Target'], ['detail', 'Detail']],
+            'No logs.'
+          );
+        });
+    }
+
+    function rbacLoadActivity() {
+      fetch('/rbac/admin/activity', { headers: rbacHeaders() })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          if (!ok) return;
+          const rows = data || [];
+          renderAdminTable(
+            'adminActivityTable',
+            rows,
+            [['created_at', 'Time'], ['anon_id', 'Anon ID'], ['event_type', 'Event'], ['mood', 'Mood'], ['confidence', 'Confidence'], ['detail', 'Detail']],
+            'No activity yet.'
+          );
+          const activityCount = document.getElementById('adminActivityCount');
+          if (activityCount) activityCount.textContent = rows.length;
+        });
+    }
+
+    function rbacBlockUser(status) {
+      const email = document.getElementById('rbacUserEmail').value.trim();
+      if (!email) return;
+      fetch('/rbac/admin/users/block', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ email, status }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacUserAction').textContent = ok ? 'Updated.' : (data.error || 'Failed.');
+          rbacLoadUsers();
+        });
+    }
+
+    function rbacResetPassword() {
+      const email = document.getElementById('rbacUserEmail').value.trim();
+      if (!email) return;
+      fetch('/rbac/admin/users/reset-password', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ email }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacUserAction').textContent = ok ? `Temp password: ${data.temp_password}` : (data.error || 'Failed.');
+        });
+    }
+
+    function rbacDeleteInactive() {
+      fetch('/rbac/admin/users/delete-inactive', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ days: 90 }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacUserAction').textContent = ok ? `Removed: ${data.removed}` : (data.error || 'Failed.');
+          rbacLoadUsers();
+        });
+    }
+
+    function rbacSaveSettings() {
+      const ai = document.getElementById('rbacThreshold').value || '0.7';
+      const mode = document.getElementById('rbacLlmMode').value || 'llm';
+      const acc = document.getElementById('rbacModelAcc').value || '';
+      fetch('/rbac/admin/settings', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ ai_threshold: ai, llm_mode: mode, model_accuracy: acc }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacSettingsMsg').textContent = ok ? 'Saved.' : (data.error || 'Failed.');
+          rbacLoadDashboard();
+        });
+    }
+
+    let rbac2faEnforced = false;
+    let rbacSystemLocked = false;
+
+    function rbacToggle2fa() {
+      rbac2faEnforced = !rbac2faEnforced;
+      fetch('/rbac/superadmin/2fa', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ enforce: rbac2faEnforced }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacSettingsMsg').textContent = ok ? '2FA setting updated.' : (data.error || 'Failed.');
+        });
+    }
+
+    function rbacToggleLock() {
+      rbacSystemLocked = !rbacSystemLocked;
+      fetch('/rbac/superadmin/lock', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ lock: rbacSystemLocked }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacSettingsMsg').textContent = ok ? 'System lock updated.' : (data.error || 'Failed.');
+        });
+    }
+
+    function rbacCreateAdmin() {
+      const email = document.getElementById('rbacNewAdminEmail').value.trim();
+      const pass = document.getElementById('rbacNewAdminPass').value.trim();
+      const roles = document.getElementById('rbacNewAdminRoles').value.split(',').map(s => s.trim()).filter(Boolean);
+      fetch('/rbac/superadmin/users', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ email, password: pass, roles }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacSuperMsg').textContent = ok ? 'Admin created.' : (data.error || 'Failed.');
+        });
+    }
+
+    function rbacAssignRoles() {
+      const email = document.getElementById('rbacAssignEmail').value.trim();
+      const roles = document.getElementById('rbacAssignRoles').value.split(',').map(s => s.trim()).filter(Boolean);
+      fetch('/rbac/superadmin/roles/assign', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ email, roles }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacSuperMsg').textContent = ok ? 'Roles assigned.' : (data.error || 'Failed.');
+        });
+    }
+
+    function rbacBackup() {
+      fetch('/rbac/superadmin/backup', { headers: rbacHeaders() })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          const area = document.getElementById('rbacBackupPayload');
+          if (area) area.value = ok ? data.backup : (data.error || '');
+        });
+    }
+
+    function rbacRestore() {
+      const payload = document.getElementById('rbacBackupPayload').value.trim();
+      if (!payload) return;
+      fetch('/rbac/superadmin/restore', {
+        method: 'POST',
+        headers: rbacHeaders(),
+        body: JSON.stringify({ backup: payload }),
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+        .then(({ ok, data }) => {
+          document.getElementById('rbacSuperMsg').textContent = ok ? 'Restore complete.' : (data.error || 'Failed.');
+        });
+    }
+
+    // DASHBOARD
+    function updDash() {
+      const ck = getCK(), today = new Date().toDateString(), tck = ck.filter(c => new Date(c.ts).toDateString() === today);
+      document.getElementById('sCI').textContent = tck.length;
+      const sk = getStreak(); document.getElementById('sSt').textContent = sk;
+      const last = ck[ck.length - 1]; document.getElementById('sMd').textContent = last ? (ME[last.mood] || last.mood) : '—';
+      document.getElementById('sTr').textContent = sk > 3 ? '📈 Up' : ck.length ? '➡️ Steady' : '—';
+      // chart
+      const ch = document.getElementById('moodChart'), lb = document.getElementById('moodLabels'); ch.innerHTML = ''; lb.innerHTML = '';
+      const colors = ['#e84393', '#6c5ce7', '#fd79a8', '#a29bfe', '#74b9ff', '#00cec9', '#fab1a0'];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(); d.setDate(d.getDate() - i); const ds = d.toDateString();
+        const cnt = ck.filter(c => new Date(c.ts).toDateString() === ds).length;
+        const h = Math.max(8, Math.min(100, cnt * 25));
+        ch.innerHTML += `<div class="chart-bar" style="height:${h}%;background:linear-gradient(180deg,${colors[6 - i]},${colors[6 - i]}88)"><div class="tip">${cnt}</div></div>`;
+        lb.innerHTML += `<span>${d.toLocaleDateString('en-US', { weekday: 'short' })}</span>`;
+      }
+      // donut
+      const dn = document.getElementById('donutArea'); dn.innerHTML = '';
+      const mf = getMF(ck.map(c => c.mood)); const total = ck.length || 1;
+      mf.slice(0, 3).forEach(([mood, cnt]) => {
+        const pct = Math.round(cnt / total * 100); const col = MC[mood] || '#6c5ce7';
+        const dash = 2 * Math.PI * 38; const fill = dash * pct / 100;
+        dn.innerHTML += `<div class="donut"><svg width="100" height="100"><circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><circle cx="50" cy="50" r="38" fill="none" stroke="${col}" stroke-width="8" stroke-dasharray="${fill} ${dash - fill}" stroke-linecap="round"/></svg><div class="donut-label"><span class="donut-pct">${pct}%</span><span class="donut-name">${mood}</span></div></div>`;
+      });
+      if (!mf.length) dn.innerHTML = '<span style="color:var(--text-dim);font-size:.82rem">No data yet</span>';
+      // feed
+      const fd = document.getElementById('actFeed'), rc = ck.slice(-5).reverse();
+      if (rc.length) { fd.innerHTML = rc.map(c => { const t = new Date(c.ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); const d = new Date(c.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); const col = MC[c.mood] || 'var(--pink)'; return `<div class="act-item"><div class="act-ic" style="background:${col}22;color:${col}">${ME[c.mood] || '•'}</div><div class="act-txt">${c.type} — <b>${c.mood}</b></div><div class="act-time">${d} ${t}</div></div>` }).join('') }
+    }
+
+    // SUMMARY
+    async function updSummary() {
+      const ck = getCK(), total = ck.length || 1, mf = getMF(ck.map(c => c.mood));
+      document.getElementById('smTotal').textContent = ck.length;
+      document.getElementById('smAvg').textContent = mf[0] ? (ME[mf[0][0]] || mf[0][0]) : '—';
+      document.getElementById('smStrk').textContent = getStreak();
+      // 14 day chart
+      const ch = document.getElementById('sumChart'), lb = document.getElementById('sumLabels'); ch.innerHTML = ''; lb.innerHTML = '';
+      const cols = ['#e84393', '#fd79a8', '#6c5ce7', '#a29bfe', '#74b9ff', '#00cec9', '#00b894', '#fab1a0', '#fdcb6e', '#e17055', '#ff7675', '#e84393', '#6c5ce7', '#a29bfe'];
+      for (let i = 13; i >= 0; i--) {
+        const d = new Date(); d.setDate(d.getDate() - i); const ds = d.toDateString();
+        const cnt = ck.filter(c => new Date(c.ts).toDateString() === ds).length;
+        const h = Math.max(5, Math.min(100, cnt * 20));
+        ch.innerHTML += `<div class="chart-bar" style="height:${h}%;background:linear-gradient(180deg,${cols[13 - i]},${cols[13 - i]}66)"><div class="tip">${cnt}</div></div>`;
+        if (i % 2 === 0) lb.innerHTML += `<span>${d.getDate()}/${d.getMonth() + 1}</span>`;
+      }
+      // rings
+      const rg = document.getElementById('ringArea'); rg.innerHTML = '';
+      mf.slice(0, 5).forEach(([mood, cnt]) => {
+        const pct = Math.round(cnt / total * 100); const col = MC[mood] || '#6c5ce7'; const dash = 2 * Math.PI * 24; const fill = dash * pct / 100;
+        rg.innerHTML += `<div class="ring-item"><div class="ring"><svg width="60" height="60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="5"/><circle cx="30" cy="30" r="24" fill="none" stroke="${col}" stroke-width="5" stroke-dasharray="${fill} ${dash - fill}" stroke-linecap="round"/></svg><div class="ring-val">${pct}%</div></div><div class="ring-name">${mood}</div></div>`;
+      });
+      if (!mf.length) rg.innerHTML = '<span style="color:var(--text-dim);font-size:.82rem">No data</span>';
+      // progress bars
+      const pb = document.getElementById('progBars'); pb.innerHTML = '';
+      mf.forEach(([mood, cnt]) => {
+        const pct = Math.round(cnt / total * 100); const col = MC[mood] || '#6c5ce7';
+        pb.innerHTML += `<div class="prog"><div class="prog-head"><span class="prog-label">${ME[mood] || ''} ${mood}</span><span class="prog-val">${cnt}</span></div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:linear-gradient(90deg,${col},${col}88)"></div></div></div>`;
+      });
+      if (!mf.length) pb.innerHTML = '<span style="color:var(--text-dim);font-size:.82rem">No data yet</span>';
+      // num cards
+      const nc = document.getElementById('numCards');
+      const wk = ck.filter(c => (Date.now() - new Date(c.ts)) / (86400000) < 7).length;
+      nc.innerHTML = `<div class="num-c" style="border-color:var(--pink)"><div class="num-v">${ck.length}</div><div class="num-l">All Time</div></div><div class="num-c" style="border-color:var(--purple)"><div class="num-v">${wk}</div><div class="num-l">This Week</div></div><div class="num-c" style="border-color:var(--teal)"><div class="num-v">${getStreak()}</div><div class="num-l">Streak</div></div>`;
+      // full donut
+      const fd = document.getElementById('fullDonut'); fd.innerHTML = '';
+      mf.forEach(([mood, cnt]) => {
+        const pct = Math.round(cnt / total * 100); const col = MC[mood] || '#6c5ce7'; const dash = 2 * Math.PI * 38; const fill = dash * pct / 100;
+        fd.innerHTML += `<div class="donut"><svg width="100" height="100"><circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><circle cx="50" cy="50" r="38" fill="none" stroke="${col}" stroke-width="8" stroke-dasharray="${fill} ${dash - fill}" stroke-linecap="round"/></svg><div class="donut-label"><span class="donut-pct">${pct}%</span><span class="donut-name">${mood}</span></div></div>`;
+      });
+      const now = new Date();
+      const weekAgo = new Date(); weekAgo.setDate(now.getDate() - 7);
+      const monthAgo = new Date(); monthAgo.setDate(now.getDate() - 30);
+      const weekCount = ck.filter(c => new Date(c.ts) >= weekAgo).length;
+      const monthCount = ck.filter(c => new Date(c.ts) >= monthAgo).length;
+      document.getElementById('trendWeek').textContent = weekCount;
+      document.getElementById('trendMonth').textContent = monthCount;
+      let trend = '—';
+      if (monthCount > 0) {
+        const ratio = weekCount / (monthCount / 4);
+        trend = ratio > 1.1 ? '📈 Up' : (ratio < 0.9 ? '📉 Down' : '➡️ Steady');
+      }
+      document.getElementById('trendDir').textContent = trend;
+      await loadServerCharts();
+    }
+
+    function navCalendar(offset) {
+      calMonth += offset;
+      if (calMonth < 0) {
+        calMonth = 11;
+        calYear -= 1;
+      }
+      if (calMonth > 11) {
+        calMonth = 0;
+        calYear += 1;
+      }
+      updCalendar();
+    }
+
+    function selectCalendarDay(dateStr) {
+      const grid = document.getElementById('calendarGrid');
+      const detail = document.getElementById('calDetail');
+      if (!grid || !detail) return;
+      grid.querySelectorAll('.cal-day').forEach(d => d.classList.remove('active'));
+      const el = grid.querySelector(`[data-date="${dateStr}"]`);
+      if (el) el.classList.add('active');
+      const ck = getCK().filter(c => new Date(c.ts).toISOString().slice(0, 10) === dateStr);
+      if (!ck.length) {
+        detail.textContent = 'No check-ins for this day.';
+        return;
+      }
+      const last = ck[ck.length - 1];
+      detail.innerHTML = `<b>${dateStr}</b><br>${ck.length} check-in(s). Last mood: ${ME[last.mood] || last.mood}`;
+    }
+
+    function updCalendar() {
+      const header = document.getElementById('calHeader');
+      const grid = document.getElementById('calendarGrid');
+      if (!header || !grid) return;
+      const monthLabel = new Date(calYear, calMonth, 1).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+      header.innerHTML = `<button class="btn btn-s" onclick="navCalendar(-1)">‹ Prev</button><div class="top-stat">${monthLabel}</div><button class="btn btn-s" onclick="navCalendar(1)">Next ›</button>`;
+
+      const first = new Date(calYear, calMonth, 1);
+      const startDay = first.getDay();
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const ck = getCK();
+
+      grid.innerHTML = '';
+      for (let i = 0; i < startDay; i++) {
+        grid.innerHTML += `<div></div>`;
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(calYear, calMonth, d);
+        const dateStr = date.toISOString().slice(0, 10);
+        const dayCk = ck.filter(c => new Date(c.ts).toISOString().slice(0, 10) === dateStr);
+        const last = dayCk[dayCk.length - 1];
+        const mood = last ? last.mood : '';
+        const col = mood ? (MC[mood] || '#6c5ce7') : '';
+        const style = col ? `style="border-color:${col};box-shadow:0 0 0 2px ${col}22"` : '';
+        grid.innerHTML += `<div class="cal-day" data-date="${dateStr}" ${style} onclick="selectCalendarDay('${dateStr}')"><div class="d">${d}</div><div class="m">${mood ? (ME[mood] || '•') : '•'}</div></div>`;
+      }
+    }
+
+    function renderServerBars(chartId, labelsId, points, valueKey, labelKey) {
+      const chartEl = document.getElementById(chartId);
+      const labelsEl = document.getElementById(labelsId);
+      if (!chartEl || !labelsEl) return;
+
+      chartEl.innerHTML = '';
+      labelsEl.innerHTML = '';
+
+      if (!points || !points.length) {
+        chartEl.innerHTML = '<div style="color:var(--text-dim);font-size:.78rem;padding:12px">No saved data yet.</div>';
+        return;
+      }
+
+      const maxVal = Math.max(...points.map(p => Number(p[valueKey]) || 0), 1);
+      points.forEach((point) => {
+        const value = Number(point[valueKey]) || 0;
+        const dominant = point.dominant_mood || 'neutral';
+        const color = MC[dominant] || '#e84393';
+        const height = Math.max(8, Math.round((value / maxVal) * 100));
+        const avgConf = Math.round((Number(point.avg_confidence) || 0) * 100);
+        const tip = `${value} check-ins | ${dominant} | ${avgConf}% conf`;
+        chartEl.insertAdjacentHTML(
+          'beforeend',
+          `<div class="chart-bar server-bar" style="height:${height}%;background:linear-gradient(180deg,${color},${color}66)"><div class="tip">${escHtml(tip)}</div></div>`
+        );
+        labelsEl.insertAdjacentHTML('beforeend', `<span>${escHtml(String(point[labelKey] || '—'))}</span>`);
+      });
+    }
+
+    async function loadServerCharts() {
+      const dailyMeta = document.getElementById('dailySrvMeta');
+      const weeklyMeta = document.getElementById('weeklySrvMeta');
+      const dailyChart = document.getElementById('dailySrvChart');
+      const weeklyChart = document.getElementById('weeklySrvChart');
+      const dailyLabels = document.getElementById('dailySrvLabels');
+      const weeklyLabels = document.getElementById('weeklySrvLabels');
+
+      if (!dailyMeta || !weeklyMeta || !dailyChart || !weeklyChart || !dailyLabels || !weeklyLabels) return;
+
+      dailyChart.innerHTML = '<span class="spinner"></span>';
+      weeklyChart.innerHTML = '<span class="spinner"></span>';
+      dailyLabels.innerHTML = '';
+      weeklyLabels.innerHTML = '';
+      dailyMeta.textContent = 'Loading daily chart data...';
+      weeklyMeta.textContent = 'Loading weekly chart data...';
+
+      let o;
+      try {
+        o = await api('/insights/charts?days=7&weeks=8', 'GET');
+      } catch {
+        dailyMeta.textContent = 'Could not load daily chart data.';
+        weeklyMeta.textContent = 'Could not load weekly chart data.';
+        dailyChart.innerHTML = '<div style="color:var(--text-dim);font-size:.78rem;padding:12px">No data</div>';
+        weeklyChart.innerHTML = '<div style="color:var(--text-dim);font-size:.78rem;padding:12px">No data</div>';
+        return;
+      }
+
+      if (!o.ok) {
+        dailyMeta.textContent = 'Could not load daily chart data.';
+        weeklyMeta.textContent = 'Could not load weekly chart data.';
+        dailyChart.innerHTML = '<div style="color:var(--text-dim);font-size:.78rem;padding:12px">No data</div>';
+        weeklyChart.innerHTML = '<div style="color:var(--text-dim);font-size:.78rem;padding:12px">No data</div>';
+        return;
+      }
+
+      const daily = o.data.daily || [];
+      const weekly = o.data.weekly || [];
+      renderServerBars('dailySrvChart', 'dailySrvLabels', daily, 'count', 'label');
+
+      const weeklyWithShortLabels = weekly.map((w) => {
+        const date = new Date(`${w.week_start}T00:00:00`);
+        return { ...w, short_label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) };
+      });
+      renderServerBars('weeklySrvChart', 'weeklySrvLabels', weeklyWithShortLabels, 'count', 'short_label');
+
+      const stats = o.data.stats || {};
+      const dailyCount = Number(stats.daily_checkins) || 0;
+      const avgConf = Math.round((Number(stats.daily_avg_confidence) || 0) * 100);
+      if (dailyCount > 0) {
+        dailyMeta.textContent = `${dailyCount} complete check-ins in the last 7 days. Average confidence: ${avgConf}%.`;
+      } else {
+        dailyMeta.textContent = 'No complete check-ins in the last 7 days yet.';
+      }
+
+      const weeklyCount = weekly.reduce((sum, w) => sum + (Number(w.count) || 0), 0);
+      const fileName = (o.data.saved_weekly_file || '').split(/[\\/]/).pop() || 'weekly_overview.csv';
+      if (weeklyCount > 0) {
+        weeklyMeta.textContent = `${weeklyCount} complete check-ins tracked over ${weekly.length} weeks. Weekly snapshot saved to ${fileName}.`;
+      } else {
+        weeklyMeta.textContent = `No complete weekly trend yet. Weekly snapshot file is ${fileName}.`;
+      }
+    }
+
+    // PROFILE
+    function updProfile() {
+      const ck = getCK(), mf = getMF(ck.map(c => c.mood)), total = ck.length || 1;
+      const pb = document.getElementById('pfBars'); pb.innerHTML = '';
+      mf.forEach(([mood, cnt]) => {
+        const pct = Math.round(cnt / total * 100); const col = MC[mood] || '#6c5ce7';
+        pb.innerHTML += `<div class="prog"><div class="prog-head"><span class="prog-label">${ME[mood] || ''} ${mood}</span><span class="prog-val">${pct}%</span></div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:linear-gradient(90deg,${col},${col}88)"></div></div></div>`;
+      });
+      if (!mf.length) pb.innerHTML = '<p style="color:var(--text-dim);font-size:.82rem">No data yet</p>';
+      const sk = getStreak();
+      const badges = [{ i: '🌱', n: 'First Check-In', on: ck.length >= 1 }, { i: '🔥', n: '3-Day Streak', on: sk >= 3 }, { i: '⚡', n: '7-Day Streak', on: sk >= 7 }, { i: '🏆', n: '30-Day', on: sk >= 30 }, { i: '📝', n: '10 Reflections', on: ck.filter(c => c.type === 'reflection').length >= 10 }, { i: '🎬', n: '5 Videos', on: ck.filter(c => c.type === 'video').length >= 5 }];
+      document.getElementById('pfBadges').innerHTML = badges.map(b => `<div class="badge-i ${b.on ? 'on' : ''}"><span class="bi">${b.on ? b.i : '🔒'}</span><span class="bn">${b.n}</span></div>`).join('');
+      document.getElementById('pfTC').textContent = ck.length; document.getElementById('pfSK').textContent = sk;
+      document.getElementById('pfTM').textContent = mf[0] ? (ME[mf[0][0]] || mf[0][0]) : '—';
+    }
+
+    // API
+    function setH(ok, m) {
+      // Update backend health dot and text in top bar.
+      document.getElementById('hDot').className = 's-dot ' + (ok ? 'ok' : 'err');
+      document.getElementById('hTxt').textContent = m;
+    }
+
+    async function api(p, m = 'GET', b = null) {
+      // Build fetch options.
+      const o = { method: m, headers: { 'Content-Type': 'application/json' } };
+      const u = JSON.parse(localStorage.getItem('ms_u') || 'null');
+      const email = u && u.email ? u.email : '';
+      if (email) o.headers['X-User-Email'] = email;
+      // Attach JSON body when provided.
+      if (b) {
+        const body = Object.assign({}, b);
+        if (email && !body.user_email) body.user_email = email;
+        o.body = JSON.stringify(body);
+      }
+      // Send request to backend.
+      const r = await fetch(p, o);
+      let d;
+      try {
+        // Parse JSON response body.
+        d = await r.json();
+      } catch {
+        // Fallback when server did not return JSON.
+        d = { error: 'Err' };
+      }
+      // Return a normalized response object.
+      return { ok: r.ok, data: d };
+    }
+
+    async function checkH() {
+      // Ping backend health endpoint and update status.
+      const o = await api('/health');
+      setH(o.ok, o.ok ? 'Online' : 'Error');
+    }
+
+    // LLM STATUS
+    async function checkLLM() {
+      try {
+        const o = await api('/llm/status');
+        if (o.ok && o.data.available) {
+          llmOnline = true;
+          document.getElementById('llmDot').className = 's-dot ok';
+          document.getElementById('llmTxt').textContent = '🤖 AI: ' + o.data.provider;
+          document.getElementById('llmPill').title = 'Model: ' + o.data.model;
+        } else {
+          llmOnline = false;
+          document.getElementById('llmDot').className = 's-dot';
+          document.getElementById('llmTxt').textContent = '⚠️ Fallback';
+        }
+      } catch {
+        llmOnline = false;
+        document.getElementById('llmDot').className = 's-dot err';
+        document.getElementById('llmTxt').textContent = '⚠️ Offline';
+      }
+    }
+
+    function appendUserChatBubble(msg) {
+      const messages = document.getElementById('chatMessages');
+      if (!messages || !msg) return;
+      messages.insertAdjacentHTML('beforeend', `<div class="chat-bubble user">${escHtml(msg)}</div>`);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function appendAiChatBubble(reply, source, withTyping = true) {
+      const messages = document.getElementById('chatMessages');
+      if (!messages || !reply) return;
+
+      const src = source || 'fallback';
+      const srcTag = src !== 'fallback'
+        ? `<div class="src-tag">✨ via ${escHtml(src)}</div>`
+        : `<div class="src-tag">⚠️ fallback</div>`;
+
+      if (!withTyping) {
+        messages.insertAdjacentHTML(
+          'beforeend',
+          `<div class="chat-bubble ai">${escHtml(reply)}${srcTag}</div>`
+        );
+        messages.scrollTop = messages.scrollHeight;
+        return;
+      }
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble ai';
+      messages.appendChild(bubble);
+      let i = 0;
+      const t = setInterval(() => {
+        if (i < reply.length) {
+          bubble.insertAdjacentText('beforeend', reply[i]);
+          i++;
+          messages.scrollTop = messages.scrollHeight;
+        } else {
+          clearInterval(t);
+          bubble.insertAdjacentHTML('beforeend', srcTag);
+        }
+      }, 15);
+    }
+
+    function syncReflectionToChat(reflectionText, companionReply, source) {
+      if (!companionReply) return;
+      appendUserChatBubble(reflectionText);
+      appendAiChatBubble(companionReply, source, false);
+    }
+
+    // CHECK-IN
+    async function qC(f, el) {
+      // Clear previous selected mood button.
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('sel'));
+      // Mark clicked button as selected.
+      if (el) el.classList.add('sel');
+      // Show loading state.
+      document.getElementById('qRes').innerHTML = '<span class="spinner"></span> Checking in...';
+
+      // Send quick feeling to backend.
+      const o = await api('/checkin/quick', 'POST', { feeling: f });
+      if (!o.ok) {
+        document.getElementById('qRes').textContent = 'Error. Try again.';
+        return;
+      }
+
+      // Add badge based on AI source/fallback status.
+      const src = o.data.llm_source || 'none';
+      const badge = (src !== 'none' && src !== 'fallback' && src !== 'error')
+        ? '<span class="ai-badge ai-on">✨ AI</span>'
+        : (src === 'fallback' ? '<span class="ai-badge ai-off">⚠️ Fallback</span>' : '');
+
+      // Show backend message and source badge.
+      document.getElementById('qRes').innerHTML = (o.data.message || 'Saved!') + badge;
+      // Save quick check-in locally for dashboard/profile stats.
+      if (o.ok) {
+        addCK('quick', f);
+        addAIHistory('quick_checkin', f, o.data.message || 'Saved!', src);
+      }
+    }
+    function useTemplate(t) {
+      const input = document.getElementById('textInput');
+      if (!input) return;
+      input.value = t;
+      input.focus();
+    }
+    async function saveRef() {
+      const t = document.getElementById('textInput').value.trim();
+      if (t.length < 3) {
+        document.getElementById('tRes').textContent = 'Write more, or skip.';
+        return;
+      }
+      document.getElementById('tRes').innerHTML = '<span class="spinner"></span> Analyzing your reflection...';
+      const o = await api('/predict/text', 'POST', { text: t, save_session: true });
+      if (!o.ok) {
+        document.getElementById('tRes').textContent = 'Could not save.';
+        return;
+      }
+      const emotion = o.data.emotion || 'neutral';
+      const emoji = ME[emotion] || '💜';
+      const companionReply = o.data.companion_reply || o.data.llm_response || '';
+      const llmSource = o.data.llm_source || 'fallback';
+      const hasProvider = !['none', 'error', 'fallback', 'unavailable'].includes(llmSource);
+      const fallbackReply = `Thanks for sharing. It sounds like a ${emotion} moment. Try one small reset and be gentle with yourself.`;
+      const reply = companionReply || fallbackReply;
+      const srcBadge = hasProvider
+        ? `<span class="ai-badge ai-on">AI: ${escHtml(llmSource)}</span>`
+        : '<span class="ai-badge ai-off">Fallback</span>';
+
+      addCK('reflection', emotion, t.substring(0, 50));
+      syncReflectionToChat(t, reply, llmSource);
+      addAIHistory('reflection', t, reply, llmSource);
+
+      document.getElementById('tRes').innerHTML =
+        `<div style="margin-bottom:8px;font-size:.75rem;color:var(--pink);font-weight:600">MOOD DETECTED: ${emoji} ${emotion.toUpperCase()}</div>` +
+        `<div style="padding:8px 10px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:rgba(255,255,255,.02);margin-bottom:10px">` +
+        `<div style="font-size:.7rem;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">Your reflection</div>` +
+        `<div style="font-size:.86rem;line-height:1.6">${escHtml(t)}</div>` +
+        `</div>` +
+        `<div style="padding:8px 10px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:rgba(255,255,255,.02)">` +
+        `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px">` +
+        `<div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px">MoodSense reply</div>` +
+        `${srcBadge}` +
+        `</div>` +
+        `<div id="tResReply" style="font-size:.86rem;line-height:1.6"></div>` +
+        `</div>`;
+
+      await typeT('tResReply', reply, false);
+      lastTextSavedAt = Date.now();
+      maybeAutoFuse();
+    }
+    function skipRef() { document.getElementById('tRes').textContent = 'Skipped ✨' }
+
+    async function saveGuided() {
+      const prompt = document.getElementById('gPrompt').value.trim();
+      const ans = document.getElementById('gText').value.trim();
+      if (ans.length < 3) {
+        document.getElementById('gRes').textContent = 'Write more, or skip.';
+        return;
+      }
+      document.getElementById('gRes').innerHTML = '<span class="spinner"></span> Analyzing your guided check-in...';
+      const combined = `${prompt} ${ans}`;
+      const o = await api('/predict/text', 'POST', { text: combined, save_session: true });
+      if (!o.ok) {
+        document.getElementById('gRes').textContent = 'Could not save.';
+        return;
+      }
+      const emotion = o.data.emotion || 'neutral';
+      const emoji = ME[emotion] || '💗';
+      const companionReply = o.data.companion_reply || o.data.llm_response || '';
+      const llmSource = o.data.llm_source || 'fallback';
+      const fallbackReply = `Thanks for sharing. It sounds like a ${emotion} moment. Try one small reset and be gentle with yourself.`;
+      const reply = companionReply || fallbackReply;
+      addCK('guided', emotion, ans.substring(0, 50));
+      addAIHistory('guided', combined, reply, llmSource);
+      document.getElementById('gRes').innerHTML =
+        `<div style="margin-bottom:8px;font-size:.75rem;color:var(--pink);font-weight:600">MOOD DETECTED: ${emoji} ${emotion.toUpperCase()}</div>` +
+        `<div style="font-size:.86rem;line-height:1.6">${escHtml(reply)}</div>`;
+      lastTextSavedAt = Date.now();
+      maybeAutoFuse();
+    }
+    function clearGuided() {
+      const t = document.getElementById('gText'); if (t) t.value = '';
+      document.getElementById('gRes').textContent = 'Guided responses are saved like reflections.';
+    }
+
+    // VISUAL
+    async function capFrame() {
+      // Get video and hidden canvas elements.
+      const v = document.getElementById('cam');
+      const c = document.getElementById('camC');
+      const ctx = c.getContext('2d');
+      // Wait until camera has valid frame size.
+      if (!v.videoWidth) return;
+      // Draw current video frame to canvas.
+      ctx.drawImage(v, 0, 0, c.width, c.height);
+      // Convert frame to compressed JPEG base64.
+      const img = c.toDataURL('image/jpeg', 0.7);
+
+      // Send frame to backend for emotion prediction.
+      const o = await api('/visual/predict-frame', 'POST', { image: img });
+      if (!o.ok) {
+        document.getElementById('camB').textContent = '📷 Reading...';
+        return;
+      }
+
+      // Collect sample if face was detected; otherwise ask user to adjust.
+      if (o.data.face_detected) {
+        visualSamples.push({ emotion: o.data.emotion, confidence: o.data.confidence });
+        document.getElementById('camB').textContent = '🟢 Running';
+      } else {
+        document.getElementById('camB').textContent = '↔ Adjust';
+      }
+    }
+
+    async function startV() {
+      // Do nothing if stream is already running.
+      if (mediaStream) return;
+      try {
+        // Ask browser for camera permission.
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      } catch {
+        document.getElementById('vRes').textContent = 'Camera denied.';
+        return;
+      }
+
+      // Reset previous samples.
+      visualSamples = [];
+      // Attach stream to video element.
+      document.getElementById('cam').srcObject = mediaStream;
+      // Turn on camera UI state.
+      document.getElementById('camW').classList.add('on');
+      document.getElementById('camB').textContent = '🟢 Running';
+      document.getElementById('vRes').textContent = 'Started.';
+      // Capture and infer one frame every second.
+      inferTimer = setInterval(capFrame, 1000);
+    }
+
+    async function stopV() {
+      // Stop periodic frame capture.
+      if (inferTimer) {
+        clearInterval(inferTimer);
+        inferTimer = null;
+      }
+      // Stop camera tracks and release stream.
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(t => t.stop());
+        mediaStream = null;
+      }
+
+      // Reset camera UI state.
+      document.getElementById('cam').srcObject = null;
+      document.getElementById('camW').classList.remove('on');
+      document.getElementById('camB').textContent = '📷 Idle';
+
+      // If no face samples collected, show retry message.
+      if (!visualSamples.length) {
+        document.getElementById('vRes').textContent = 'No signal. Try again.';
+        return;
+      }
+
+      // Count emotions and average confidence across collected samples.
+      const cnt = {};
+      let cs = 0;
+      for (const s of visualSamples) {
+        cnt[s.emotion] = (cnt[s.emotion] || 0) + 1;
+        cs += Number(s.confidence) || 0;
+      }
+
+      // Choose dominant mood and average confidence for session save.
+      const dom = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0][0];
+      const avg = cs / visualSamples.length;
+      // Save visual session to backend.
+      const o = await api('/visual/save-session', 'POST', { mood: dom, confidence: avg });
+      document.getElementById('vRes').textContent = o.ok ? 'Saved 🎬' : 'Error.';
+      if (o.ok) {
+        addCK('video', dom);
+        lastVideoSavedAt = Date.now();
+        maybeAutoFuse();
+      }
+    }
+    function skipV() {
+      // Stop capture flow and mark as skipped in UI.
+      stopV();
+      document.getElementById('vRes').textContent = 'Skipped ✨';
+    }
+
+    async function autoFuse() {
+      const out = document.getElementById('fRes');
+      if (out) out.innerHTML = '<span class="spinner"></span> Combining check-ins...';
+      const o = await api('/fuse', 'POST', {});
+      if (!o.ok) {
+        if (out) out.textContent = o.data.error || 'Complete check-ins first.';
+        return;
+      }
+
+      const srcBadge = o.data.llm_source && o.data.llm_source !== 'fallback'
+        ? '<span class="ai-badge ai-on">✨ ' + o.data.llm_source + '</span>'
+        : '<span class="ai-badge ai-off">⚠️ Fallback</span>';
+
+      if (out) out.innerHTML = '';
+      await typeT('fRes', 'Combined result:\n\n' + (o.data.message || 'Pause and breathe.') + (o.data.nudge ? '\n\nTip: ' + o.data.nudge : ''));
+      if (out) out.insertAdjacentHTML('beforeend', srcBadge);
+      addAIHistory('fuse', '', (o.data.message || '') + (o.data.nudge ? (' ' + o.data.nudge) : ''), o.data.llm_source || 'fallback');
+    }
+
+    function maybeAutoFuse() {
+      if (!lastTextSavedAt || !lastVideoSavedAt) return;
+      const key = `${lastTextSavedAt}|${lastVideoSavedAt}`;
+      if (fuseInFlight || key === lastFuseKey) return;
+      lastFuseKey = key;
+      fuseInFlight = true;
+      autoFuse().finally(() => {
+        fuseInFlight = false;
+      });
+    }
+
+    async function getSupport() {
+      // Show loading state in support output box.
+      document.getElementById('fRes').innerHTML = '<span class="spinner"></span> Loading...';
+      // Request fused support message from backend.
+      const o = await api('/fuse', 'POST', {});
+      if (!o.ok) {
+        document.getElementById('fRes').textContent = o.data.error || 'Complete check-ins first.';
+        return;
+      }
+
+      // Show provider badge for AI or fallback.
+      const srcBadge = o.data.llm_source && o.data.llm_source !== 'fallback'
+        ? '<span class="ai-badge ai-on">✨ ' + o.data.llm_source + '</span>'
+        : '<span class="ai-badge ai-off">⚠️ Fallback</span>';
+
+      // Animate returned support text + nudge.
+      document.getElementById('fRes').innerHTML = '';
+      await typeT('fRes', '💬 ' + (o.data.message || 'Pause and breathe.') + (o.data.nudge ? '\n\n💡 ' + o.data.nudge : ''));
+      // Add badge after typing completes to avoid splitting text.
+      document.getElementById('fRes').insertAdjacentHTML('beforeend', srcBadge);
+      addAIHistory('support', '', (o.data.message || '') + (o.data.nudge ? (' ' + o.data.nudge) : ''), o.data.llm_source || 'fallback');
+    }
+    async function getWeekly() {
+      // Show loading state in weekly output box.
+      document.getElementById('wRes').innerHTML = '<span class="spinner"></span> Loading...';
+      // Request weekly summary from backend.
+      const o = await api('/insights/weekly', 'GET');
+      if (!o.ok) {
+        document.getElementById('wRes').textContent = 'Error loading.';
+        return;
+      }
+
+      // Show provider badge for AI or fallback.
+      const srcBadge = o.data.llm_source && o.data.llm_source !== 'fallback'
+        ? '<span class="ai-badge ai-on">✨ ' + o.data.llm_source + '</span>'
+        : '<span class="ai-badge ai-off">⚠️ Fallback</span>';
+
+      // Animate weekly summary text.
+      document.getElementById('wRes').innerHTML = '';
+      await typeT('wRes', '📊 ' + (o.data.summary || 'No summary yet.'));
+      // Add source badge after typing completes to avoid splitting text.
+      document.getElementById('wRes').insertAdjacentHTML('beforeend', srcBadge);
+      addAIHistory('weekly_summary', '', o.data.summary || '', o.data.llm_source || 'fallback');
+    }
+
+    function typeT(id, txt, append) {
+      // Resolve target element to type into.
+      const el = document.getElementById(id);
+      if (!el) return Promise.resolve();
+      // Clear content unless appending mode is requested.
+      if (!append) el.textContent = '';
+      // Start at first character.
+      let i = 0;
+      // Type one character every 15ms.
+      return new Promise((resolve) => {
+        const t = setInterval(() => {
+          if (i < txt.length) {
+            el.insertAdjacentText('beforeend', txt[i]);
+            i++;
+          } else {
+            clearInterval(t);
+            resolve();
+          }
+        }, 15);
+      });
+    }
+    // AI CHAT
+    async function sendChat() {
+      // Read and trim user message.
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      // Clear input immediately for better UX.
+      input.value = '';
+      // Disable send button while request is in flight.
+      const btn = document.getElementById('chatSendBtn');
+      btn.disabled = true;
+
+      const messages = document.getElementById('chatMessages');
+      // Append user message bubble to chat.
+      appendUserChatBubble(msg);
+
+      // Append temporary typing indicator bubble.
+      const typingId = 'typing-' + Date.now();
+      messages.insertAdjacentHTML('beforeend', `<div class="chat-typing" id="${typingId}"><span></span><span></span><span></span></div>`);
+      messages.scrollTop = messages.scrollHeight;
+
+      try {
+        // Send message to backend chat endpoint.
+        const o = await api('/chat', 'POST', { message: msg });
+        // Remove typing indicator when response returns.
+        const typing = document.getElementById(typingId);
+        if (typing) typing.remove();
+
+        if (o.ok) {
+          // Use backend reply or fallback phrase.
+          const reply = o.data.reply || 'I\'m here for you. Take a moment to breathe.';
+          appendAiChatBubble(reply, o.data.llm_source || 'fallback', true);
+          addAIHistory('chat', msg, reply, o.data.llm_source || 'fallback');
+        } else {
+          // Backend returned non-OK status.
+          messages.insertAdjacentHTML('beforeend', `<div class="chat-bubble ai">Sorry, I couldn't process that right now. Please try again. 💜</div>`);
+        }
+      } catch {
+        // Remove typing indicator on network/runtime error.
+        const typing = document.getElementById(typingId);
+        if (typing) typing.remove();
+        messages.insertAdjacentHTML('beforeend', `<div class="chat-bubble ai">Connection error. Please check your server. 💜</div>`);
+      }
+
+      // Re-enable send button and keep latest message visible.
+      btn.disabled = false;
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function escHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+    // INIT
+    (function () {
+      const fbReady = initFirebase();
+      if (!fbReady) {
+        ['liErr', 'rErr', 'gErr'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = 'Firebase failed to load. Check your internet and refresh.';
+        });
+      }
+      const adminKey = localStorage.getItem('ms_admin_key') || '';
+      const adminInput = document.getElementById('adminKeyInput');
+      if (adminInput && adminKey) adminInput.value = adminKey;
+      loadAdminConfig();
+      loadReminder();
+      setInterval(checkReminderTick, 60000);
+      if (rbacToken) {
+        setRbacStatus('RBAC session restored.', true);
+        rbacRefresh();
+      }
+      if (rbacTempToken) {
+        document.getElementById('rbac2fa').style.display = 'block';
+        setRbacStatus('2FA pending. Enter code.', true);
+      }
+      checkH();
+      checkLLM();
+      setInterval(checkLLM, 30000);
+    })();
+  </script>
+</body>
+
+</html>

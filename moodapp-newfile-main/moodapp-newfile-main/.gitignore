@@ -1,0 +1,34 @@
+*.npy
+*.h5
+venv/
+venv311/
+__pycache__/
+*.py[cod]
+.env
+api_*.log
+
+# Runtime/generated logs
+visual_based/mood_log.csv
+visual_based/mood_log_detailed.csv
+text based/mood_diary.csv
+data/text_sessions.csv
+data/visual_sessions.csv
+data/overall_sessions.csv
+data/admin_responses.csv
+data/users.csv
+data/activity_log.csv
+data/rbac.db
+
+# Large local datasets (kept local, not pushed)
+visual_based/fer2013/
+visual_based/datasets/
+visual_based/fer2013.csv
+
+# Test/temp files
+test_gemini.py
+
+# IDE / Agent
+.vscode/
+.idea/
+.gemini/
+.agent/

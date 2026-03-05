@@ -1,0 +1,439 @@
+2026-02-25 09:43:12.861521: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+WARNING:tensorflow:From C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.3.2 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator TfidfTransformer from version 1.3.2 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator TfidfVectorizer from version 1.3.2 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+2026-02-25 09:43:17.957357: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE SSE2 SSE3 SSE4.1 SSE4.2 AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\backend.py:1398: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+WARNING:tensorflow:From C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\layers\normalization\batch_normalization.py:979: The name tf.nn.fused_batch_norm is deprecated. Please use tf.compat.v1.nn.fused_batch_norm instead.
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.126.107.133:8000
+Press CTRL+C to quit
+ * Restarting with stat
+2026-02-25 09:43:19.457655: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+WARNING:tensorflow:From C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.3.2 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator TfidfTransformer from version 1.3.2 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator TfidfVectorizer from version 1.3.2 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+2026-02-25 09:43:24.680136: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE SSE2 SSE3 SSE4.1 SSE4.2 AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\backend.py:1398: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+WARNING:tensorflow:From C:\Users\soora\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\layers\normalization\batch_normalization.py:979: The name tf.nn.fused_batch_norm is deprecated. Please use tf.compat.v1.nn.fused_batch_norm instead.
+
+ * Debugger is active!
+ * Debugger PIN: 136-553-634
+127.0.0.1 - - [25/Feb/2026 09:43:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:43:34] "GET /insights/weekly HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:44:08] "GET /insights/weekly HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:44:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:45:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:46:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:47:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:48:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:49:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:50:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:51:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:05] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 09:52:05] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:13] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:28] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:39] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:41] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:42] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:43] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:46] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:46] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:46] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:47] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:48] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:49] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:50] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:51] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:52] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:53] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:54] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:55] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:56] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:57] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:52:57] "POST /visual/save-session HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:53:03] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:53:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:53:16] "GET /insights/weekly HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:53:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:54:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:54:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:55:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:55:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:56:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:56:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:57:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:57:37] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:57:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:58:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:58:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:58:43] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:12] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:13] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:14] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:15] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:16] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:17] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:18] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:19] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:20] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:22] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:22] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:23] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:24] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:25] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:26] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:27] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:29] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:29] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:30] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:32] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:33] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:34] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:35] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:36] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:37] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:38] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:39] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:40] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:41] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:42] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:43] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:44] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:44] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:45] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:46] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:47] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:49] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:49] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 09:59:50] "POST /visual/save-session HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:00:00] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:00:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:00:18] "GET /insights/charts?days=7&weeks=8 HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:00:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:01:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:01:35] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:01:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:02:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:02:37] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:03:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:03:48] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:03:48] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [25/Feb/2026 10:03:50] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:04:20] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:04:50] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:05:20] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:05:50] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:06:20] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:06:50] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:07:20] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:07:50] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:08:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:09:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:10:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:11:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:12:08] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:12:20] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:12:50] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:13:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:14:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:15:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:15:52] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 10:15:52] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:15:53] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:15:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:16:03] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:16:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:16:45] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:16:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:06] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:06] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:07] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:08] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:08] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:10] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:11] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:12] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:13] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:14] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:15] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:16] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:17] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:18] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:18] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:20] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:21] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:21] "POST /visual/save-session HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:26] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:47] "GET /insights/weekly HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:17:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:18:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:18:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:19:17] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:19:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:19:36] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:19:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:20:09] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:20:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:20:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:21:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:21:55] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:22:24] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:22:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:22:51] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:22:53] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:17] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:19] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:46] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:46] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:48] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:23:59] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:24:01] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:24:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:24:23] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:24:23] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:24:25] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:24:55] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:25:25] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:25:55] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:26:25] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:26:55] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:27:25] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:27:55] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:28:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:29:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:30:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:31:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:32:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:33:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:34:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:35:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:36:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:37:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:38:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:39:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:40:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:41:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:42:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:43:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:44:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:45:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:46:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 10:47:29] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:03:40] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:03:40] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [25/Feb/2026 11:04:09] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:32:17] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 11:32:17] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:32:18] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [25/Feb/2026 11:32:19] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:32:48] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:32:49] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:33:15] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 11:33:15] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:33:17] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:33:20] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:33:47] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:34:17] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:34:47] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:35:17] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:35:33] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 11:35:33] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:35:35] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:35:43] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:36:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:36:24] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:36:35] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:37:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:37:35] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:38:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:38:35] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:39:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:40:06] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:41:07] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:42:08] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:43:09] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:44:10] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:44:54] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:45:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:45:35] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:46:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:46:35] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:05] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:12] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:14] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:17] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 11:47:17] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:19] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:31] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Feb/2026 11:47:31] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:47:33] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:03] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:06] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:08] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:19] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:48:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:49:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:49:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:50:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:50:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:51:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:51:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:52:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:52:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:53:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:53:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:54:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:54:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:55:15] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:55:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:55:50] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:55:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:02] "POST /predict/text HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:16] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:17] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:18] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:19] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:20] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:21] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:22] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:23] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:24] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:25] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:26] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:27] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:28] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:30] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:30] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:31] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:32] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:33] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:34] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:35] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:36] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:37] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:38] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:39] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:40] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:41] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:42] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:43] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:44] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:45] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:46] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:48] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:48] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:49] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:50] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:51] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:52] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:53] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:54] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:55] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:56] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:57] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:56:59] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:00] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:01] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:02] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:03] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:03] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:05] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:06] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:07] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:08] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:08] "POST /visual/save-session HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:13] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:18] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:46] "GET /insights/weekly HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:57:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:58:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:58:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:59:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:59:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 11:59:53] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:00:01] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:00:09] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:00:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:00:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:01:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:02:13] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:02:19] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:02:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:02:27] "POST /checkin/quick HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:02:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:03:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:22] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:38] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:39] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:40] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:41] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:47] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:48] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:49] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:50] "POST /visual/predict-frame HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:50] "POST /visual/save-session HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:04:58] "POST /fuse HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:05:16] "GET /insights/charts?days=7&weeks=8 HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:05:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:05:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:06:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:06:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:07:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:07:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:08:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:08:45] "GET /insights/charts?days=7&weeks=8 HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:08:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:09:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:09:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:10:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:10:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:11:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:11:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:12:21] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:12:51] "GET /llm/status HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2026 12:13:21] "GET /llm/status HTTP/1.1" 200 -
